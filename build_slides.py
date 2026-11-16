@@ -36,8 +36,9 @@ def img_data_uri(name: str) -> str:
 
 def load_wiki():
     entries = json.loads((WIKI / "entries.json").read_text(encoding="utf-8"))
-    manifest_lines = (WIKI / "manifest.csv").read_text(encoding="utf-8-sig").splitlines()
-    return entries, max(0, len(manifest_lines) - 1)
+    chunk_count = len(list((WIKI / "chunks").glob("*.txt")))
+    source_count = len(list((ROOT / "sources").glob("*.md")))
+    return entries, chunk_count, source_count
 
 
 STYLE = r"""
@@ -140,7 +141,7 @@ def slide(kicker: str, title: str, body: str, cls: str = "") -> str:
 
 
 def build() -> Path:
-    entries, chunk_count = load_wiki()
+    entries, chunk_count, source_count = load_wiki()
     by_topic = {e["topic"]: e for e in entries}
 
     def wiki_card(topic: str) -> str:
@@ -157,7 +158,7 @@ def build() -> Path:
         '<div class="kicker">NTU COOL 第十週作業 · LLM WIKI</div>'
         '<h1>如何用 Strata<br>部署本地模型</h1>'
         '<div class="sub">從硬體選型、安裝啟動到 API 串接的一次完整實作</div>'
-        '<div class="meta">教材來源：Strata 官方文件（含原理示意圖與社群實測）共 6 篇　|　'
+        f'<div class="meta">教材來源：Strata 官方文件（含原理示意圖與社群實測）共 {source_count} 篇　|　'
         '由 LLM Wiki 自動整理並產出　|　2026-11-16</div>'
         '</section>'
     )
@@ -361,7 +362,7 @@ UPDATE.bat / update.sh # 更新</code></pre>
       <tr><td>2x TITAN RTX 24G</td><td>IQ3_S</td><td>70.9 tok/s</td></tr>
       <tr><td>Strix Halo 128G 統一記憶體</td><td>UD-IQ4_XS</td><td>59.2 tok/s</td></tr>
     </table>
-    <p style="margin-top:12px">官方明確提醒：<strong>這是社群實測、不是保證值</strong>，須與估計值分開標示。來源：<code>docs/COMMUNITY_BENCHMARKS.md</code></p>
+    <p style="margin-top:10px">註：RTX 5060 Ti 與 RTX 4070 兩列都是 48.2 tok/s，來自兩份不同報告，數字相同純屬巧合（前者 IQ3_S、後者 IQ2_XS）。</p><p style="margin-top:6px">官方明確提醒：<strong>這是社群實測、不是保證值</strong>，須與估計值分開標示。來源：<code>docs/COMMUNITY_BENCHMARKS.md</code></p>
     """))
 
     # 10 Wiki 摘要
@@ -370,12 +371,12 @@ UPDATE.bat / update.sh # 更新</code></pre>
         "API 與外部工具串接", "與其他工具的比較", "常見問題與效能瓶頸",
     ])
     slides.append(slide("LLM WIKI", f"這份簡報是怎麼被「寫」出來的？", f"""
-    <p>先建立自己的 LLM Wiki：<strong>ingest 6 篇 → 切成 {chunk_count} 個 chunk → 索引 → 生成 6 個條目 → 檢查 → 重新生成 → 反思</strong>。</p>
+    <p>先建立自己的 LLM Wiki：<strong>ingest {source_count} 篇 → 切成 {chunk_count} 個 chunk → 索引 → 生成 {len(entries)} 個條目 → 檢查 → 重新生成 → 反思</strong>。</p>
     <div class="grid g3" style="margin-top:12px">{wiki_cards}</div>
     """))
 
     # 11 Graph
-    slides.append(slide("GRAPH 設計", "Loop / Graph 設計圖", """
+    slides.append(slide("GRAPH 設計", "Loop / Graph 設計圖", f"""
     <svg viewBox="0 0 1000 430" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
@@ -384,9 +385,9 @@ UPDATE.bat / update.sh # 更新</code></pre>
       </defs>
       <g font-family="sans-serif" font-size="15" fill="#e8eefc">
         <rect x="20"  y="60" width="140" height="56" rx="12" fill="#1e3050" stroke="#38bdf8"/>
-        <text x="90"  y="94" text-anchor="middle">ingest 6 篇</text>
+        <text x="90"  y="94" text-anchor="middle">ingest {source_count} 篇</text>
         <rect x="200" y="60" width="140" height="56" rx="12" fill="#1e3050" stroke="#38bdf8"/>
-        <text x="270" y="94" text-anchor="middle">chunk 36 塊</text>
+        <text x="270" y="94" text-anchor="middle">chunk {chunk_count} 塊</text>
         <rect x="380" y="60" width="140" height="56" rx="12" fill="#1e3050" stroke="#38bdf8"/>
         <text x="450" y="94" text-anchor="middle">index 檢索</text>
         <rect x="560" y="60" width="140" height="56" rx="12" fill="#1e3050" stroke="#a78bfa"/>
