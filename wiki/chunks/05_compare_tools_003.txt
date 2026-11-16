@@ -1,9 +1,10 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜技術核心
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）｜誰做什麼（對應官方示意圖 how-it-works.svg）
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 【內容】
-- Strata：C++ 異構分層排程 + CPU/GPU 平行執行
-- Ollama：基於 llama.cpp（GGUF 跨平台執行）
-- vLLM：PagedAttention + Continuous Batching
-- SGLang：RadixAttention（前綴快取）+ 結構化約束解碼
+- 模型是由 **24,576 個小專家（experts）** 組成的團隊，每寫一個字只用其中 **10 個**。
+- **GPU（VRAM）**：放注意力層、DeltaNet mixer、路由器、共享專家、輸出頭、MTP 草稿層、KV cache，以及「專家快取」。快取會隨著對話動態調整。每多 1 GB VRAM 大約多放 700 個專家；放在 GPU 上的專家，CPU 就不用算。
+- **RAM**：鎖住全部 24,576 個專家。GPU 沒有的專家，由 CPU 用 AVX-512 / AVX2 就地計算，與 GPU 同時進行，互不等待。
+- **SSD**：放 28.8 GB 的 n-gram 查找表，每個 token 只讀幾行。
+- 同一套引擎在 NVIDIA（CUDA）與 AMD（HIP）都一樣，只是分別編譯。

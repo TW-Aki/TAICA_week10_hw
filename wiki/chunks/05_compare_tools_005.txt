@@ -1,9 +1,8 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜併發與吞吐
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）｜讀取長文本
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 【內容】
-- Strata：針對單併發（Batch=1）極致優化
-- Ollama：單併發尚可，併發擴充能力較弱
-- vLLM：針對吞吐量（Throughput）調校，極高多併發吞吐
-- SGLang：針對吞吐量調校，在多輪對話與樹搜尋特別高效
+- 一次讀最多 8,192 tokens，所以長文件與程式碼庫可達每秒 1,000 tokens 以上。
+- 目前層在算注意力時，下一層的專家同時透過 PCIe 串流到 GPU。
+- 第一次對話後會保留對話快取，只讀新東西，後續提問幾秒就開始。

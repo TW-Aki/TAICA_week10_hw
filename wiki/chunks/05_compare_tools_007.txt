@@ -1,8 +1,11 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜Strata 的局限
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）｜與其他工具的定位差異（整理自官方文件與評估報告）
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 【內容】
-1. 模型支援較單一，主要針對特定大型稀疏 MoE 調校，不像 Ollama 能隨意拉小模型。
-2. 對系統記憶體與 CPU 有硬門檻，通常要 32~64GB RAM 與支援 AVX2/AVX-512 的現代多核 CPU。
-3. 低 bit 量化（如 IQ2_XS、Q4）會讓複雜推理能力一定程度劣化。
+- Ollama：通用、好上手，適合 7B–32B 常規模型。
+- vLLM：資料中心導向，主打高併發吞吐。
+- SGLang：主打前綴快取與結構化解碼，適合多 Agent。
+- Strata：只針對特定大型 MoE 深度優化，把「放不下」的模型跑起來；專注單用戶、單機。
+
+官方 README 明確說 Strata 不是通用推論引擎，作者也回答過 dense 模型不在範圍內。這點跟 Ollama 很不一樣。

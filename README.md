@@ -29,7 +29,7 @@ week10_hw/
 └── out/
     ├── run_log.md               # 執行紀錄（可看到 check FAIL → regenerate → PASS）
     ├── reflection.md            # 反思
-    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，14 頁）
+    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，16 頁）
 ```
 
 ---
@@ -73,7 +73,7 @@ python llm_wiki.py all
 | 要求 | 本專案做法 |
 |---|---|
 | 建立自己的 LLM Wiki，至少 ingest 5 篇 | `sources/` 共 6 篇，`llm_wiki.py` 會檢查不得少於 5 篇 |
-| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 14 頁單檔 HTML |
+| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 16 頁單檔 HTML |
 | 說明 loop / graph 設計 | `design_notes.md`、簡報第 11 頁 SVG 流程圖 |
 | 重複節點 | `check ↔ regenerate` 形成迴圈，最多 3 輪 |
 | 檢查與重新生成 | `check_entry()` 驗證 5 個欄位；失敗時呼叫 `regenerate` 後回到 `check` |
@@ -83,6 +83,12 @@ python llm_wiki.py all
 
 ## 資料來源
 
-1. Strata 官方 GitHub：<https://github.com/Niko1221/Strata>
-2. 技術評論（知乎）：<https://zhuanlan.zhihu.com/p/2101327443474883150>
-3. 其餘檔案為由上述來源整理的本機文件，每篇開頭都有「標題 / 來源網址 / 教材整理日期 / 資料類型」metadata。
+全部改用官方文件，附示意圖與社群實測數據，公信力高於第三方評論：
+
+1. 官方 README（繁體中文版）：<https://github.com/Niko1221/Strata/blob/main/README.zh-CN.md>
+2. 官方工作原理（含 how-it-works.svg、guess-and-check.svg 示意圖）：<https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md>
+3. 官方模型與記憶體指南：<https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md>
+4. 官方社群實測數據：<https://github.com/Niko1221/Strata/blob/main/docs/COMMUNITY_BENCHMARKS.md>
+5. 官方文件全集：<https://github.com/Niko1221/Strata/tree/main/docs>
+
+官方示意圖已下載到 `out/media/`，並嵌入教學簡報中。每篇來源開頭都有「標題 / 來源網址 / 教材整理日期 / 資料類型」metadata。

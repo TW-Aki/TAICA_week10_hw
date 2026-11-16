@@ -1,57 +1,55 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 
-# 四套工具的定位差異
+# 工作原理與效能實測
 
-這篇技術評論把 Strata 放在「消費級硬體上跑超大模型」的位置，並與 Ollama、vLLM、SGLang 比較。
+這篇整理官方 `docs/HOW_IT_WORKS.md` 與 `docs/COMMUNITY_BENCHMARKS.md`，取代先前的第三方技術評論。官方文件附有兩張示意圖，分別說明「專家分層」與「先猜測再驗證」。
 
-## 核心定位
+## 一句話比喻
 
-| 工具 | 主要定位 |
-|---|---|
-| Strata | 消費級極限跨層推理：單機跑超顯存 MoE |
-| Ollama | 輕量個人應用：極簡桌面、一鍵運行 |
-| vLLM | 企業級生產高吞吐：集群、高並發 |
-| SGLang | 複雜 Agent / 長文本服務：快取與結構化推理 |
+官方用廚房比喻：最常用的東西放流理台（顯卡），其餘放儲藏室（記憶體），需要時才拿。模型太大放不進顯卡，就把工作分給整台電腦。
 
-## 技術核心
+## 誰做什麼（對應官方示意圖 how-it-works.svg）
 
-- Strata：C++ 異構分層排程 + CPU/GPU 平行執行
-- Ollama：基於 llama.cpp（GGUF 跨平台執行）
-- vLLM：PagedAttention + Continuous Batching
-- SGLang：RadixAttention（前綴快取）+ 結構化約束解碼
+- 模型是由 **24,576 個小專家（experts）** 組成的團隊，每寫一個字只用其中 **10 個**。
+- **GPU（VRAM）**：放注意力層、DeltaNet mixer、路由器、共享專家、輸出頭、MTP 草稿層、KV cache，以及「專家快取」。快取會隨著對話動態調整。每多 1 GB VRAM 大約多放 700 個專家；放在 GPU 上的專家，CPU 就不用算。
+- **RAM**：鎖住全部 24,576 個專家。GPU 沒有的專家，由 CPU 用 AVX-512 / AVX2 就地計算，與 GPU 同時進行，互不等待。
+- **SSD**：放 28.8 GB 的 n-gram 查找表，每個 token 只讀幾行。
+- 同一套引擎在 NVIDIA（CUDA）與 AMD（HIP）都一樣，只是分別編譯。
 
-## 硬體門檻
+## 先猜測，再驗證（對應官方示意圖 guess-and-check.svg）
 
-- Strata：消費級顯卡 12~24G + 大記憶體 32~64G+
-- Ollama：一般的 PC、Mac 統一記憶體、甚至是沒有顯卡的 CPU 環境
-- vLLM：資料中心卡或高顯存工作站，權重大多要塞進 VRAM
-- SGLang：資料中心卡或多卡集群，需要大顯存支撐高並發快取
+- 模型內建的 MTP 層先草稿最多 3 個 token，一次通過全部 48 層驗證，平均每次前向產生 2.4–3.2 個 token。
+- 官方說法：品質一樣，但速度快 **1.6–1.8 倍**。
+- 遇到重複上下文（程式碼編輯、引用文字）時，prompt lookup 最多草稿 5 個 token，只在實測划算時才用；程式碼編輯快 6–11%，其他文字不變。
 
-## 併發與吞吐
+## 讀取長文本
 
-- Strata：針對單併發（Batch=1）極致優化
-- Ollama：單併發尚可，併發擴充能力較弱
-- vLLM：針對吞吐量（Throughput）調校，極高多併發吞吐
-- SGLang：針對吞吐量調校，在多輪對話與樹搜尋特別高效
+- 一次讀最多 8,192 tokens，所以長文件與程式碼庫可達每秒 1,000 tokens 以上。
+- 目前層在算注意力時，下一層的專家同時透過 PCIe 串流到 GPU。
+- 第一次對話後會保留對話快取，只讀新東西，後續提問幾秒就開始。
 
-## Strata 的技術原理（評論所述）
+## 官方社群實測（節錄）
 
-1. 多級分層專家管理（Expert Tiering）：GPU VRAM 放注意力層、路由器、共享專家、輸出頭與熱點專家池；Host RAM 鎖住全部專家；NVMe SSD 放大型靜態查找表，靠 page cache 按需讀取。
-2. CPU 與 GPU 異構平行：token 路由到冷專家時，直接用 CPU 的 AVX2 / AVX-512 在記憶體內計算，gpu 同時算熱門部分，兩條管線重疊，避開 PCIe 瓶頸。
-3. 投機解碼與多 token 預測（MTP）：單次前向驗證多個候選 token。評論聲稱在 RTX 4070/5070（12GB）+ 64GB 記憶體的機器上，可把 125B MoE 推到 50~90+ token/s。
+官方鼓勵使用者用自己的硬體量測，並提供 `strata bench run` 標準流程。幾個有代表性報告：
 
-## Strata 的局限
+| 硬體 | 量化 | 結果 |
+|---|---|---|
+| RTX 5060 Ti 16 GB + i5-12600KF，64 GB RAM | IQ3_S | 解碼 48.2 / 47.7 tok/s |
+| RTX 4070 12 GB + i5-12600KF，32 GB DDR4 | IQ2_XS | 48.23 accepted-decode tok/s |
+| RX 9070 16 GB + Ryzen 7 5800X3D，64 GB RAM | IQ3_XXS | 解碼 58.7 / 57.9 / 57.9 tok/s，prompt 586 / 804 / 833 tok/s |
+| 2x TITAN RTX 24 GB，125 GiB RAM | IQ3_S | 解碼 70.9 / 77.3 / 71.1 tok/s |
+| Strix Halo 筆記型電腦 128 GB 統一記憶體 | UD-IQ4_XS | prompt 969 / 1,067 / 1,031 tok/s，解碼 59.2 / 57.8 / 42.0 tok/s |
 
-1. 模型支援較單一，主要針對特定大型稀疏 MoE 調校，不像 Ollama 能隨意拉小模型。
-2. 對系統記憶體與 CPU 有硬門檻，通常要 32~64GB RAM 與支援 AVX2/AVX-512 的現代多核 CPU。
-3. 低 bit 量化（如 IQ2_XS、Q4）會讓複雜推理能力一定程度劣化。
+這些數字都是社群回報、不是官方保證值；官方文件明確提醒要把估計值與實測值分開標示。
 
-## 選擇建議
+## 與其他工具的定位差異（整理自官方文件與評估報告）
 
-- 12~16GB 顯卡 + 64GB 記憶體、想離線跑大型 MoE coding 模型：選 Strata。
-- Mac、辦公筆電、想零配置跑 7B~32B：選 Ollama。
-- 企業後台、私有雲 API、上百人併發：選 vLLM。
-- 多輪工作流、多 Agent、需要前綴快取：選 SGLang。
+- Ollama：通用、好上手，適合 7B–32B 常規模型。
+- vLLM：資料中心導向，主打高併發吞吐。
+- SGLang：主打前綴快取與結構化解碼，適合多 Agent。
+- Strata：只針對特定大型 MoE 深度優化，把「放不下」的模型跑起來；專注單用戶、單機。
+
+官方 README 明確說 Strata 不是通用推論引擎，作者也回答過 dense 模型不在範圍內。這點跟 Ollama 很不一樣。

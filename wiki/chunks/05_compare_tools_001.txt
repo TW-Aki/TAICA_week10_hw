@@ -1,6 +1,6 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜四套工具的定位差異
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）｜工作原理與效能實測
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 【內容】
-這篇技術評論把 Strata 放在「消費級硬體上跑超大模型」的位置，並與 Ollama、vLLM、SGLang 比較。
+這篇整理官方 `docs/HOW_IT_WORKS.md` 與 `docs/COMMUNITY_BENCHMARKS.md`，取代先前的第三方技術評論。官方文件附有兩張示意圖，分別說明「專家分層」與「先猜測再驗證」。

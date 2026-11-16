@@ -1,9 +1,8 @@
-標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜硬體門檻
-來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+標題：Strata 工作原理與官方效能實測（含官方示意圖）｜先猜測，再驗證（對應官方示意圖 guess-and-check.svg）
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md
 教材整理日期：2026-11-16
-資料類型：技術評論
+資料類型：官方文件
 【內容】
-- Strata：消費級顯卡 12~24G + 大記憶體 32~64G+
-- Ollama：一般的 PC、Mac 統一記憶體、甚至是沒有顯卡的 CPU 環境
-- vLLM：資料中心卡或高顯存工作站，權重大多要塞進 VRAM
-- SGLang：資料中心卡或多卡集群，需要大顯存支撐高並發快取
+- 模型內建的 MTP 層先草稿最多 3 個 token，一次通過全部 48 層驗證，平均每次前向產生 2.4–3.2 個 token。
+- 官方說法：品質一樣，但速度快 **1.6–1.8 倍**。
+- 遇到重複上下文（程式碼編輯、引用文字）時，prompt lookup 最多草稿 5 個 token，只在實測划算時才用；程式碼編輯快 6–11%，其他文字不變。

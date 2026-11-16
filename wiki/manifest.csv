@@ -23,14 +23,13 @@
 04_api_connect_004,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,為什麼這很重要,https://github.com/Niko1221/Strata#connect-external-tools,82
 04_api_connect_005,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,實作重點,https://github.com/Niko1221/Strata#connect-external-tools,156
 04_api_connect_006,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,常見誤區,https://github.com/Niko1221/Strata#connect-external-tools,130
-05_compare_tools_001,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,四套工具的定位差異,https://zhuanlan.zhihu.com/p/2101327443474883150,59
-05_compare_tools_002,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,核心定位,https://zhuanlan.zhihu.com/p/2101327443474883150,153
-05_compare_tools_003,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,技術核心,https://zhuanlan.zhihu.com/p/2101327443474883150,151
-05_compare_tools_004,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,硬體門檻,https://zhuanlan.zhihu.com/p/2101327443474883150,144
-05_compare_tools_005,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,併發與吞吐,https://zhuanlan.zhihu.com/p/2101327443474883150,117
-05_compare_tools_006,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,Strata 的技術原理（評論所述）,https://zhuanlan.zhihu.com/p/2101327443474883150,322
-05_compare_tools_007,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,Strata 的局限,https://zhuanlan.zhihu.com/p/2101327443474883150,151
-05_compare_tools_008,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,選擇建議,https://zhuanlan.zhihu.com/p/2101327443474883150,150
+05_compare_tools_001,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,工作原理與效能實測,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,108
+05_compare_tools_002,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,一句話比喻,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,62
+05_compare_tools_003,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,誰做什麼（對應官方示意圖 how-it-works.svg）,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,365
+05_compare_tools_004,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,先猜測，再驗證（對應官方示意圖 guess-and-check.svg）,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,183
+05_compare_tools_005,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,讀取長文本,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,122
+05_compare_tools_006,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,官方社群實測（節錄）,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,583
+05_compare_tools_007,05_compare_tools,Strata 工作原理與官方效能實測（含官方示意圖）,與其他工具的定位差異（整理自官方文件與評估報告）,https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md,205
 06_teaching_outline_001,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,教學簡報大綱,本機整理（由 01~05 來源文件綜合）,65
 06_teaching_outline_002,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,學習目標,本機整理（由 01~05 來源文件綜合）,146
 06_teaching_outline_003,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,簡報章節,本機整理（由 01~05 來源文件綜合）,275

@@ -9,6 +9,7 @@ build_slides.py — 由 LLM Wiki 產生教學型 HTML 簡報
 
 from __future__ import annotations
 
+import base64
 import html
 import json
 import re
@@ -21,6 +22,16 @@ OUT = ROOT / "out"
 
 def esc(s: str) -> str:
     return html.escape(s or "")
+
+
+def img_data_uri(name: str) -> str:
+    """把 out/media/ 的官方示意圖轉成 data URI，讓 HTML 保持單檔。"""
+    mime = "image/svg+xml" if name.endswith(".svg") else "image/png"
+    p = OUT / "media" / name
+    if not p.exists():
+        return ""
+    b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+    return f"data:{mime};base64,{b64}"
 
 
 def load_wiki():
@@ -146,7 +157,7 @@ def build() -> Path:
         '<div class="kicker">NTU COOL 第十週作業 · LLM WIKI</div>'
         '<h1>如何用 Strata<br>部署本地模型</h1>'
         '<div class="sub">從硬體選型、安裝啟動到 API 串接的一次完整實作</div>'
-        '<div class="meta">教材來源：Strata 官方 GitHub + 技術評論共 6 篇　|　'
+        '<div class="meta">教材來源：Strata 官方文件（含原理示意圖與社群實測）共 6 篇　|　'
         '由 LLM Wiki 自動整理並產出　|　2026-11-16</div>'
         '</section>'
     )
@@ -176,6 +187,26 @@ def build() -> Path:
         <li>Coder：<code>IQ1_M</code></li>
       </ul></div>
     </div>
+    """))
+
+    # 3.5 工作原理（官方示意圖）
+    how_it_works = img_data_uri("how-it-works.svg")
+    guess_check = img_data_uri("guess-and-check.svg")
+    slides.append(slide("官方原理", "Strata 如何把 125B 模型塞進小顯卡？", f"""
+    <p>官方用廚房比喻：常用的放流理台（顯卡），其餘放儲藏室（記憶體）。模型有 <strong>24,576 個專家，每字只用 10 個</strong>。</p>
+    <div class="grid g2">
+      <div class="card" style="text-align:center">
+        <img src="{how_it_works}" alt="官方專家分層示意圖" style="max-height:38vh">
+        <p style="font-size:13px;margin-top:8px">圖一：GPU 放熱點專家、RAM 放全部專家、SSD 放查找表<br>
+        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
+      </div>
+      <div class="card" style="text-align:center">
+        <img src="{guess_check}" alt="官方先猜測再驗證示意圖" style="max-height:38vh">
+        <p style="font-size:13px;margin-top:8px">圖二：MTP 草稿最多 3 token，一次驗證，快 1.6–1.8 倍<br>
+        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
+      </div>
+    </div>
+    <p style="margin-top:10px">每多 1 GB VRAM 約多放 700 個專家；CPU 與 GPU 同時算，互不等待。</p>
     """))
 
     # 4 比較
@@ -261,6 +292,20 @@ UPDATE.bat / update.sh # 更新</code></pre>
       <div class="card"><h3>併發不是強項</h3><p>針對 Batch=1 優化；若要上百人同時用，應改選 vLLM。</p></div>
     </div>
     <p class="quote" style="margin-top:14px">{esc(by_topic.get("常見問題與效能瓶頸", {}).get("definition", ""))}</p>
+    """))
+
+    # 9.5 官方社群實測
+    slides.append(slide("官方實測", "效能到底如何？看官方社群數據", """
+    <p>官方提供 <code>strata bench run</code> 標準流程，以下為 <code>docs/COMMUNITY_BENCHMARKS.md</code> 收錄的真實回報：</p>
+    <table>
+      <tr><th>硬體</th><th>量化</th><th>解碼速度</th></tr>
+      <tr><td>RTX 5060 Ti 16G + i5-12600KF</td><td>IQ3_S</td><td>48.2 tok/s</td></tr>
+      <tr><td>RTX 4070 12G + i5-12600KF，32G RAM</td><td>IQ2_XS</td><td>48.2 tok/s</td></tr>
+      <tr><td>RX 9070 16G + Ryzen 7 5800X3D</td><td>IQ3_XXS</td><td>58.7 tok/s</td></tr>
+      <tr><td>2x TITAN RTX 24G</td><td>IQ3_S</td><td>70.9 tok/s</td></tr>
+      <tr><td>Strix Halo 128G 統一記憶體</td><td>UD-IQ4_XS</td><td>59.2 tok/s</td></tr>
+    </table>
+    <p style="margin-top:12px">官方明確提醒：<strong>這是社群實測、不是保證值</strong>，須與估計值分開標示。來源：<code>docs/COMMUNITY_BENCHMARKS.md</code></p>
     """))
 
     # 10 Wiki 摘要
