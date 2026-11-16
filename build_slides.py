@@ -207,7 +207,7 @@ def build() -> Path:
       <tr><td>Google Gemini 2.5 Pro</td><td>$1.25</td><td>$10.00</td></tr>
       <tr><td>Google Gemini 2.5 Flash-Lite</td><td>$0.10</td><td>$0.40</td></tr>
     </table>
-    <p style="margin-top:12px">用量一多就很可觀：每天 1 萬次請求、每次 1K 輸入 + 500 輸出，用 GPT-4.1 約 <strong>每月 $1,800</strong>。本地則是<strong>一次性硬體成本</strong>，之後推論邊際成本接近電費。</p>
+    <p style="margin-top:12px">用量一多就很可觀：每天 1 萬次請求、每次 1K 輸入 + 500 輸出，用 <strong>GPT-6.1 Terra</strong> 約 <strong>每月 $1,050</strong>；換成 <strong>GPT-6 Astra</strong> 則約 <strong>每月 $10,500</strong>。本地則是一次性硬體成本，之後推論邊際成本接近電費。</p>
     <p style="margin-top:8px">來源：<code>openai.com/api/pricing</code>、<code>claude.com/pricing</code>、<code>ai.google.dev/gemini-api/docs/pricing</code></p>
     """))
 
@@ -224,6 +224,7 @@ def build() -> Path:
         <li><code>Qwen3.8-Flash-Next</code>（ISTA-DASLab）</li>
         <li>量化：<code>Q2_0</code>、<code>IQ2_XS</code>、<code>IQ3_XXS</code>、<code>IQ3_S</code></li>
         <li>Coder：<code>IQ1_M</code></li>
+        <li>另有 <code>Qwen3.6-35B-A3B</code>（本作業實作用這個）</li>
       </ul></div>
     </div>
     """))
@@ -278,7 +279,7 @@ def build() -> Path:
     slides.append(slide("選型 · 逐項對比", "Ollama 與 Strata 差在哪？", """
     <table>
       <tr><th>比較項目</th><th>Ollama</th><th>Strata</th></tr>
-      <tr><td>定位</td><td>通用型模型管理器，一鍵跑常見模型</td><td>專為「超顯存 MoE」設計的推論引擎</td></tr>
+      <tr><td>定位</td><td>通用型模型管理器，一鍵跑常見模型</td><td>專為「顯存放不下的 MoE」設計的推論引擎</td></tr>
       <tr><td>底層技術</td><td>llama.cpp / GGUF</td><td>C++ 自研引擎，借鏡 llama.cpp 的 ggml</td></tr>
       <tr><td>支援模型</td><td>模型庫上百款：Llama、Qwen、Gemma、Mistral、DeepSeek…</td><td>只針對 Qwen3.8-Flash-Next（125B）與 Qwen3.6-35B-A3B 深度調校</td></tr>
       <tr><td>硬體門檻</td><td>一般 PC、Mac、甚至純 CPU 都能跑</td><td>12–24G 顯卡 + 32G 以上 RAM（64G 更穩）</td></tr>
@@ -286,7 +287,7 @@ def build() -> Path:
       <tr><td>記憶體策略</td><td>整份模型放進 VRAM 或 RAM</td><td>熱門專家放 VRAM、全部專家放 RAM、查找表放 SSD</td></tr>
       <tr><td>速度特性</td><td>小模型很快，大模型放不下就變慢</td><td>用 MTP 投機解碼，官方稱快 1.6–1.8 倍</td></tr>
       <tr><td>併發</td><td>單人使用為主</td><td>預設單請求，可調到 2；不適合多人</td></tr>
-      <tr><td>本機 API</td><td><code>localhost:11434</code>，OpenAI 相容</td><td><code>localhost:8080</code>，同時支援 OpenAI 與 Anthropic</td></tr>
+      <tr><td>本機 API</td><td><code>localhost:11434</code>，OpenAI 相容</td><td>預設 <code>localhost:8080</code>，同時支援 OpenAI 與 Anthropic</td></tr>
       <tr><td>授權</td><td>MIT</td><td>MIT（模型各自的授權另計）</td></tr>
     </table>
     <p style="margin-top:12px">一句話：<strong>Ollama 是「模型百貨公司」，Strata 是「重型吊車」</strong>——前者什麼都有一點，後者專門搬別人搬不動的東西。</p>
@@ -329,7 +330,7 @@ def build() -> Path:
         <li>查自己的 VRAM 與 RAM</li>
         <li>對照 <code>docs/MODELS.md#pick-by-memory</code></li>
         <li>記憶體緊 → 低 bit；充裕 → 高 bit</li>
-        <li>確認 GPU 在支援清單內（RTX 20/30/40/50、AMD RX 7700+ 、Apple Silicon M1+…）</li>
+        <li>確認 GPU 在支援清單內（RTX 20/30/40/50、AMD RX 7700+、Apple Silicon M1+…）</li>
       </ul></div>
     </div>
     <p class="quote">MoE 模型的「總參數」不等於每次推理的計算量，但全部專家仍要放進記憶體。</p>
@@ -341,10 +342,11 @@ def build() -> Path:
       <div class="card"><h3>A · 桌面 App</h3><p>下載 Releases 安裝檔，Windows 用 <code>.exe</code>、Linux 用 <code>.AppImage</code>、macOS 用 <code>.dmg</code>。首次啟動會自動下載對應引擎。</p></div>
       <div class="card"><h3>B · 終端機</h3>
         <pre><code># Linux / macOS
-curl -fsSL .../install.sh -o install.sh &amp;&amp; sh install.sh
+curl -fsSL https://github.com/Niko1221/Strata/releases/latest/download/install.sh \
+  -o install.sh &amp;&amp; sh install.sh
 
-# Windows PowerShell
-irm .../install.ps1 | iex
+# Windows（PowerShell）
+irm https://github.com/Niko1221/Strata/releases/latest/download/install.ps1 | iex
 
 strata launch</code></pre>
       </div>
@@ -355,9 +357,9 @@ strata launch</code></pre>
 
     # 7 第一次啟動
     slides.append(slide("實作", "第一次啟動與對話", f"""
-    <p>{esc(by_topic.get("安裝與第一次啟動", {}).get("definition", ""))}</p>
+    <p>桌面 App 裝好後開啟，首次啟動會自動下載對應顯卡的引擎；終端機版則是裝完後執行 <code>strata launch</code>，依精靈提示選模型並下載。</p>
     <pre><code>strata launch     # 依精靈提示下載並啟動模型
-strata connect    # 查看External tool 串接設定
+strata connect    # 查看外部工具串接設定
 BENCH.bat / bench.sh   # 效能測試
 UPDATE.bat / update.sh # 更新</code></pre>
     <div class="grid g2" style="margin-top:14px">
@@ -396,7 +398,7 @@ UPDATE.bat / update.sh # 更新</code></pre>
         <div class="card" style="margin-bottom:12px"><h3>環境</h3>
           <p style="font-size:14px">RTX 5070 Ti 16GB｜32GB RAM｜Ryzen 7 9800X3D｜context 32K</p></div>
         <div class="card" style="margin-bottom:12px"><h3>實際輸出節錄（繁中）</h3>
-          <p style="font-size:13px;line-height:1.7">「MoE（混合專家）模型是一種將大型神經網絡拆分為多個獨立「專家」子網絡，並通過門控機制動態選擇最相關專家來處理特定輸入的架構，從而以較低的計算成本實現超大規模模型。」</p>
+          <p style="font-size:13px;line-height:1.7">「MoE（混合專家）模型是一種將大型神經網路拆分為多個獨立『專家』子網路，並透過門控機制動態選擇最相關專家來處理特定輸入的架構，從而以較低的計算成本實現超大規模模型。」</p>
           <p style="font-size:13px;line-height:1.7;margin-top:8px">「本地部署大型語言模型正成為企業與個人用戶日益重視的解決方案，其核心優勢在於數據隱私與完全控制……」</p></div>
         <div class="card"><h3>速度</h3>
           <p style="font-size:20px"><strong>25.6</strong> / <strong>24.9</strong> / <strong>22.3</strong> tok/s</p>
@@ -466,20 +468,44 @@ UPDATE.bat / update.sh # 更新</code></pre>
     <div class="grid g2">
       <div class="card"><h3>模型支援較窄</h3><p>為壓榨特定 MoE 的效率，Strata 不像 Ollama 能隨意拉任何小模型。</p></div>
       <div class="card"><h3>記憶體與 CPU 門檻</h3><p>全量專家駐留 RAM，通常要 32–64GB，且 CPU 需支援 AVX2 / AVX-512。</p></div>
-      <div class="card"><h3>低量化劣化</h3><p>IQ2 / Q4 等極低 bit 會讓複雜推理能力下降。</p></div>
+      <div class="card"><h3>低量化有取捨</h3><p>1–2 bit（IQ1／IQ2）才明顯劣化；4-bit（如 UD-Q4_K_XL）是品質與資源的平衡點。</p></div>
       <div class="card"><h3>併發不是強項</h3><p>針對 Batch=1 優化；若要上百人同時用，應改選 vLLM。</p></div>
     </div>
     <p class="quote" style="margin-top:14px">{esc(by_topic.get("常見問題與效能瓶頸", {}).get("definition", ""))}</p>
     """))
 
     # 10 Wiki 摘要
-    wiki_cards = "".join(wiki_card(t) for t in [
-        "Strata 是什麼", "安裝與第一次啟動", "模型與記憶體選擇",
-        "API 與外部工具串接", "與其他工具的比較", "常見問題與效能瓶頸",
-    ])
-    slides.append(slide("LLM WIKI", f"這份簡報是怎麼被「寫」出來的？", f"""
-    <p>先建立自己的 LLM Wiki：<strong>ingest {source_count} 篇 → 切成 {chunk_count} 個 chunk → 索引 → 生成 {len(entries)} 個條目 → 檢查 → 重新生成 → 反思</strong>。</p>
-    <div class="grid g3" style="margin-top:12px">{wiki_cards}</div>
+    topics = [
+        ("Strata 是什麼", "定位、形態、主打模型與量化選項"),
+        ("安裝與第一次啟動", "三條安裝路線、strata launch、常見誤區"),
+        ("模型與記憶體選擇", "量化光譜、依 RAM 選模型、Coder 的取捨"),
+        ("API 與外部工具串接", "OpenAI／Anthropic 相容端點、可接哪些工具"),
+        ("與其他工具的比較", "與 Ollama／vLLM／SGLang 的定位差異"),
+        ("常見問題與效能瓶頸", "模型支援窄、記憶體門檻、量化取捨、併發"),
+    ]
+    rows = "".join(
+        f"<tr><td>{esc(t)}</td><td>{esc(d)}</td></tr>" for t, d in topics
+    )
+    slides.append(slide("LLM WIKI", "這份簡報是怎麼被「寫」出來的？", f"""
+    <div class="grid g2" style="align-items:start">
+      <div>
+        <div class="card" style="margin-bottom:12px"><h3>四個步驟</h3><ul>
+          <li><strong>ingest</strong>：{source_count} 篇來源，每篇附網址與日期</li>
+          <li><strong>chunk</strong>：切成 {chunk_count} 個區塊，寫入 <code>wiki/chunks/</code></li>
+          <li><strong>draft</strong>：依六個主題檢索，生成 {len(entries)} 個 Wiki 條目</li>
+          <li><strong>export</strong>：條目與執行紀錄交給 <code>build_slides.py</code>，產出這份簡報</li>
+        </ul></div>
+        <div class="card"><h3>每個條目包含</h3><p style="font-size:14px">一句定義、3–5 個重點、來源網址、關聯條目。格式由 validator 檢查，不合格就重新生成。</p></div>
+      </div>
+      <div class="card">
+        <h3>六個主題</h3>
+        <table>
+          <tr><th>主題</th><th>涵蓋內容</th></tr>
+          {rows}
+        </table>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:13px">Wiki 只是中間產物；真正給讀者看的是這份簡報，兩者都由同一批來源長出來。</p>
     """))
 
     # 11 Graph
@@ -528,16 +554,14 @@ UPDATE.bat / update.sh # 更新</code></pre>
 
     # 12 重複節點實證
     run_log = (OUT / "run_log.md").read_text(encoding="utf-8")
-    log_slice = "\n".join(
-        line for line in run_log.splitlines()
-        if "常見問題" in line or "check" in line or "FAIL" in line
-        or "regenerate" in line or "PASS" in line or "檢索命中" in line
-    )[:1400]
+    log_lines = run_log.splitlines()
+    idx = next((i for i, l in enumerate(log_lines) if "常見問題" in l), 0)
+    log_slice = "\n".join(log_lines[idx:idx + 9])
     slides.append(slide("LOOP 實證", "重複節點、檢查與重新生成", f"""
     <p> validator 會檢查五件事：<code>title</code>、<code>definition</code>（≥20 字）、<code>bullets</code>（≥3）、<code>sources</code>（要有網址）、<code>related</code>（≥1）。</p>
     <p>下面是實際執行紀錄：第一輪草稿少了來源與關聯 → <span class="badge-bad">FAIL</span> → regenerate 補齊 → 回到 check → <span class="badge-ok">PASS</span>。</p>
     <pre class="log"><code>{esc(log_slice)}</code></pre>
-    <p style="margin-top:8px;font-size:13px">繳交前複查：簡體殘留 0 個、來源全部換成官方文件、實測 22–26 tok/s 與官方數字交叉比對、23 頁簡報在 GitHub 與 htmlpreview 均可正常開啟。</p>
+    <p style="margin-top:8px;font-size:13px">繳交前複查：簡體殘留 0 個、來源全部換成官方文件、實測 22–26 tok/s 與官方數字交叉比對、整份簡報在 GitHub 與 htmlpreview 均可正常開啟。</p>
     """))
 
     # 13 反思
