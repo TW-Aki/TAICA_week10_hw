@@ -163,13 +163,39 @@ def build() -> Path:
     )
 
     # 2 為什麼本地部署
-    slides.append(slide("動機", "為什麼要本地部署？", """
-    <div class="grid g3">
-      <div class="card"><h3>隱私</h3><p>文件、程式碼與對話都不必離開電腦。Strata 主打 <strong>No account needed</strong>、完全本機運行。</p></div>
-      <div class="card"><h3>成本</h3><p>一次性硬體成本取代長期 API 帳單。本機 <code>localhost</code> API 可取代付費端點。</p></div>
-      <div class="card"><h3>離線</h3><p>沒有網路也能聊天、寫程式；模型與推論引擎都存放在本機。</p></div>
+    slides.append(slide("動機 · 隱私", "為什麼要本地部署？先講資料風險", """
+    <p>用雲端 API 時，你貼進去的文字會被傳到對方的伺服器。有些內容<strong>根本不適合流出公司或你家</strong>：</p>
+    <div class="grid g2">
+      <div class="card"><h3>公司情境</h3><ul>
+        <li>財報、合約、客戶名單、尚未公開的產品代號</li>
+        <li>公司內部程式碼、API key、憑證、資安設定</li>
+        <li>人事資料、薪水、個資 — 可能受 GDPR／個資法規範</li>
+        <li>一旦上傳，就等於把資料控制權交給第三方</li>
+      </ul></div>
+      <div class="card"><h3>個人情境</h3><ul>
+        <li>病歷、檢查報告、身分證號、銀行帳號</li>
+        <li>私人日記、照片、家庭對話</li>
+        <li>論文未發表草稿、考題、作品原始檔</li>
+        <li>即使供應商說不拿去訓練，資料仍離開了你的裝置</li>
+      </ul></div>
     </div>
-    <p class="quote">但代價是：要自己處理模型下載、量化選擇、記憶體配置與速度取捨。</p>
+    <p class="quote">本地部署的核心價值：<strong>資料不出電腦</strong>。Strata 主打 No account needed、完全本機運行，連模型下載都可選在首次啟動時進行，對話內容永遠留在本機 <code>localhost</code>。</p>
+    """))
+
+    # 2.5 成本
+    slides.append(slide("動機 · 成本", "API token 到底多貴？", """
+    <p>雲端模型按 <strong>每百萬 token（1M ≈ 75 萬字）</strong>計價。以下為 2026-11 官方定價（美元）：</p>
+    <table>
+      <tr><th>模型</th><th>輸入 / 1M</th><th>輸出 / 1M</th></tr>
+      <tr><td>OpenAI GPT-6 Astra</td><td>$10.00</td><td>$50.00</td></tr>
+      <tr><td>OpenAI GPT-6.1 Terra</td><td>$1.00</td><td>$5.00</td></tr>
+      <tr><td>Anthropic Claude Opus 5.5</td><td>$4.00</td><td>$20.00</td></tr>
+      <tr><td>Anthropic Claude Sonnet 5.5</td><td>$2.00</td><td>$10.00</td></tr>
+      <tr><td>Google Gemini 2.5 Pro</td><td>$1.25</td><td>$10.00</td></tr>
+      <tr><td>Google Gemini 2.5 Flash-Lite</td><td>$0.10</td><td>$0.40</td></tr>
+    </table>
+    <p style="margin-top:12px">用量一多就很可觀：每天 1 萬次請求、每次 1K 輸入 + 500 輸出，用 GPT-4.1 約 <strong>每月 $1,800</strong>。本地則是<strong>一次性硬體成本</strong>，之後推論邊際成本接近電費。</p>
+    <p style="margin-top:8px">來源：<code>openai.com/api/pricing</code>、<code>claude.com/pricing</code>、<code>ai.google.dev/gemini-api/docs/pricing</code></p>
     """))
 
     # 3 Strata 是什麼

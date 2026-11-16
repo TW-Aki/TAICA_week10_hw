@@ -10,7 +10,7 @@
 
 Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體（12–24G 顯卡 + 32–64G 記憶體）上跑大型 MoE 模型，並在本機提供 OpenAI／Anthropic 相容 API。它開源、免帳號，可掛給 Claude Code、Codex CLI 等工具當後端。
 
-我做的事情是：先將 6 篇資料（官方 README 拆分 4 篇、官方工作原理與效能實測 1 篇、自行整理的教學大綱 1 篇）放進 `sources/`，建立自己的 LLM Wiki，再用這個 Wiki 產出一份 16 頁的教學型 HTML 簡報，內容涵蓋硬體選型、量化選擇、安裝啟動、API 串接與限制取捨。全部來源均為官方文件，並附上官方示意圖與社群實測數據。
+我做的事情是：先將 7 篇資料（官方 README 拆分 4 篇、官方工作原理與效能實測 1 篇、自行整理的教學大綱 1 篇，以及新增的「為什麼要本地部署」1 篇）放進 `sources/`，建立自己的 LLM Wiki，再用這個 Wiki 產出一份 17 頁的教學型 HTML 簡報，內容涵蓋本地部署動機（含資料風險舉例與 API 定價）、硬體選型、量化選擇、安裝啟動、API 串接與限制取捨。來源均為官方文件與官方定價頁，並附上官方示意圖與社群實測數據。
 
 ---
 
@@ -21,8 +21,8 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 
 | 成果 | 內容 | 檔案 |
 |---|---|---|
-| 來源文件 | 6 篇（附標題／來源網址／日期／資料類型） | `sources/01`～`06_strata_*.md` |
-| 切塊 | 35 個 txt，每檔含 metadata 與 `【內容】` | `wiki/chunks/*.txt` |
+| 來源文件 | 7 篇（附標題／來源網址／日期／資料類型） | `sources/01`～`07_*.md` |
+| 切塊 | 44 個 txt，每檔含 metadata 與 `【內容】` | `wiki/chunks/*.txt` |
 | 清單 | chunk 與來源對照 | `wiki/manifest.csv` |
 | Wiki 條目 | 6 個條目，每個有定義、重點、來源、關聯 | `wiki/entries/*.md` |
 | 結構化資料 | 供簡報產生器讀取 | `wiki/entries.json` |
@@ -36,11 +36,11 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 - **檔案**：`week10_hw/out/strata_deployment_teaching.html`
 - **開啟方式**：點上面連結直接在瀏覽器渲染；或下載檔案用瀏覽器開啟（單檔，不依賴外部 CDN）
 - **操作**：← → 或空白鍵翻頁
-- **頁數**：16 頁
+- **頁數**：17 頁
 
 > 註：GitHub 對 `.html` 檔預設顯示原始碼，直接用 repo 裡的檔案連結會看到程式碼；上面的 htmlpreview 連結才會渲染成簡報。
 
-章節：封面 → 為什麼本地部署 → Strata 是什麼 → **官方工作原理（內嵌官方示意圖）** → 與 Ollama/vLLM/SGLang 比較 → 硬體與量化 → 三條安裝路線 → 第一次啟動 → API 串接 → 常見問題 → **官方社群實測數據** → Wiki 如何產生簡報 → **Graph 設計圖（SVG）** → **Loop 執行紀錄** → **反思** → 總結。
+章節：封面 → 為什麼本地部署（隱私舉例）→ API token 成本比較 → Strata 是什麼 → **官方工作原理（內嵌官方示意圖）** → 與 Ollama/vLLM/SGLang 比較 → 硬體與量化 → 三條安裝路線 → 第一次啟動 → API 串接 → 常見問題 → **官方社群實測數據** → Wiki 如何產生簡報 → **Graph 設計圖（SVG）** → **Loop 執行紀錄** → **反思** → 總結。
 
 ---
 
@@ -48,7 +48,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 
 ```mermaid
 flowchart LR
-    A[ingest 6 篇] --> B[chunk 35 塊]
+    A[ingest 7 篇] --> B[chunk 44 塊]
     B --> C[index 檢索]
     C --> D[draft 草稿]
     D --> E{check 檢查}
@@ -60,7 +60,7 @@ flowchart LR
 
 | 節點 | 職責 |
 |---|---|
-| `ingest` | 讀 6 篇來源，檢查是否至少 5 篇 |
+| `ingest` | 讀 7 篇來源，檢查是否至少 5 篇 |
 | `chunk` | 依標題切小節，再切 700 字區塊 |
 | `index` | 字元 bigram + TF-IDF Lite |
 | `draft` | 檢索 context 後請 LLM 產生結構化條目 |
@@ -79,14 +79,14 @@ flowchart LR
 
 ```
 [node:ingest] 讀取來源文件
-  共 ingest 6 篇：01_strata_overview, 02_install_guide,
+  共 ingest 7 篇：01_strata_overview, 02_install_guide,
   03_model_and_memory, 04_api_connect, 05_compare_tools, 06_teaching_outline
 
 [node:chunk] 切塊
-  產生 35 個 chunk -> wiki/chunks/、wiki/manifest.csv
+  產生 44 個 chunk -> wiki/chunks/、wiki/manifest.csv
 
 [node:index] 建立索引
-  索引 35 個 chunk
+  索引 44 個 chunk
 
 [node:draft] 主題：常見問題與效能瓶頸
   檢索命中：03_model_and_memory_002(37.75),
@@ -105,7 +105,7 @@ flowchart LR
   wiki/entries/ (6 個條目)
 ```
 
-統計：6 篇來源 → 35 個 chunk → 6 個條目 → 累計 7 輪檢查 → 6 個條目全數通過（其中 1 個走了 2 輪）。
+統計：7 篇來源 → 44 個 chunk → 6 個條目 → 累計 7 輪檢查 → 6 個條目全數通過（其中 1 個走了 2 輪）。
 
 ---
 

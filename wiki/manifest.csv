@@ -34,3 +34,12 @@
 06_teaching_outline_002,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,學習目標,本機整理（由 01~05 來源文件綜合）,146
 06_teaching_outline_003,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,簡報章節,本機整理（由 01~05 來源文件綜合）,275
 06_teaching_outline_004,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,評分標準對應,本機整理（由 01~05 來源文件綜合）,258
+07_why_local_001,07_why_local,為什麼要本地部署：資料風險與 API 成本,為什麼要本地部署,https://openai.com/api/pricing/,100
+07_why_local_002,07_why_local,為什麼要本地部署：資料風險與 API 成本,一、資料風險：哪些內容不適合上雲端,https://openai.com/api/pricing/,38
+07_why_local_003,07_why_local,為什麼要本地部署：資料風險與 API 成本,公司情境,https://openai.com/api/pricing/,101
+07_why_local_004,07_why_local,為什麼要本地部署：資料風險與 API 成本,個人情境,https://openai.com/api/pricing/,137
+07_why_local_005,07_why_local,為什麼要本地部署：資料風險與 API 成本,二、API 成本：按 token 計價,https://openai.com/api/pricing/,44
+07_why_local_006,07_why_local,為什麼要本地部署：資料風險與 API 成本,2026-11 官方定價（美元 / 1M token）,https://openai.com/api/pricing/,668
+07_why_local_007,07_why_local,為什麼要本地部署：資料風險與 API 成本,實際試算,https://openai.com/api/pricing/,225
+07_why_local_008,07_why_local,為什麼要本地部署：資料風險與 API 成本,三、其他好處與代價,https://openai.com/api/pricing/,131
+07_why_local_009,07_why_local,為什麼要本地部署：資料風險與 API 成本,小結,https://openai.com/api/pricing/,113

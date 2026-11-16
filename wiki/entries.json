@@ -59,7 +59,7 @@
     "sources": [
       "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md",
       "https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md",
-      "https://github.com/Niko1221/Strata"
+      "https://openai.com/api/pricing/"
     ],
     "related": [
       "Strata 是什麼",
@@ -77,11 +77,12 @@
       "README 明確列出的工具包括：\n",
       "本機聊天、寫程式、處理圖片輸入（Chat, code and work with images, locally）\n",
       "使用自家的 Strata inference engine\n",
-      "`strata connect` 則用來查看怎麼把 Strata 接到外部工具。"
+      "OpenAI GPT-6 Astra | $10.00 | $50.00 |\n"
     ],
     "sources": [
       "https://github.com/Niko1221/Strata#connect-external-tools",
-      "https://github.com/Niko1221/Strata"
+      "https://github.com/Niko1221/Strata",
+      "https://openai.com/api/pricing/"
     ],
     "related": [
       "Strata 是什麼",
@@ -126,7 +127,8 @@
     ],
     "sources": [
       "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md",
-      "https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md"
+      "https://github.com/Niko1221/Strata/blob/main/docs/HOW_IT_WORKS.md",
+      "https://openai.com/api/pricing/"
     ],
     "related": [
       "Strata 是什麼",

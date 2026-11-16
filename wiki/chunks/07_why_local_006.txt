@@ -1,0 +1,24 @@
+標題：為什麼要本地部署：資料風險與 API 成本｜2026-11 官方定價（美元 / 1M token）
+來源網址：https://openai.com/api/pricing/
+教材整理日期：2026-11-17
+資料類型：官方定價與自行整理
+【內容】
+| 模型 | 輸入 | 輸出 |
+|---|---:|---:|
+| OpenAI GPT-6 Astra | $10.00 | $50.00 |
+| OpenAI GPT-6.1 Sol | $2.00 | $10.00 |
+| OpenAI GPT-6.1 Terra | $1.00 | $5.00 |
+| OpenAI GPT-6 Luna | $0.10 | $0.50 |
+| Anthropic Claude Fable 5.2 | $8.00 | $40.00 |
+| Anthropic Claude Opus 5.5 | $4.00 | $20.00 |
+| Anthropic Claude Sonnet 5.5 | $2.00 | $10.00 |
+| Anthropic Claude Haiku 5.5 | $0.10 | $0.50 |
+| Google Gemini 2.5 Pro | $1.25 | $10.00 |
+| Google Gemini 2.5 Flash | $0.30 | $2.50 |
+| Google Gemini 2.5 Flash-Lite | $0.10 | $0.40 |
+
+資料來源：
+
+- OpenAI：<https://openai.com/api/pricing/>
+- Anthropic：<https://claude.com/pricing>
+- Google：<https://ai.google.dev/gemini-api/docs/pricing>

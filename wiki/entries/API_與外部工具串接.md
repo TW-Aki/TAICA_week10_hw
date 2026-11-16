@@ -11,11 +11,13 @@
 
 - 使用自家的 Strata inference engine
 
-- `strata connect` 則用來查看怎麼把 Strata 接到外部工具。
+- OpenAI GPT-6 Astra | $10.00 | $50.00 |
+
 
 ## 來源
 - https://github.com/Niko1221/Strata#connect-external-tools
 - https://github.com/Niko1221/Strata
+- https://openai.com/api/pricing/
 
 ## 關聯條目
 - Strata 是什麼

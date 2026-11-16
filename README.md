@@ -12,7 +12,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 week10_hw/
 ├── submission.md                # 六項繳交內容
 ├── design_notes.md              # loop / graph / 檢查流程設計說明
-├── sources/                     # 至少 5 篇原始資料（目前 6 篇）
+├── sources/                     # 至少 5 篇原始資料（目前 7 篇）
 │   ├── 01_strata_overview.md    # 官方 README 摘要
 │   ├── 02_install_guide.md      # 安裝與第一次啟動
 │   ├── 03_model_and_memory.md   # 模型與記憶體 / 量化選擇
@@ -22,14 +22,14 @@ week10_hw/
 ├── llm_wiki.py                  # Wiki pipeline（graph + loop）
 ├── build_slides.py              # 由 Wiki 產生 HTML 簡報
 ├── wiki/
-│   ├── chunks/                  # 35 個切好的 txt（含 metadata）
+│   ├── chunks/                  # 44 個切好的 txt（含 metadata）
 │   ├── manifest.csv
 │   ├── entries/                 # 6 個 Wiki 條目（markdown）
 │   └── entries.json
 └── out/
     ├── run_log.md               # 執行紀錄（可看到 check FAIL → regenerate → PASS）
     ├── reflection.md            # 反思
-    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，16 頁）
+    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，17 頁）
 ```
 
 ---
@@ -79,8 +79,8 @@ python llm_wiki.py all
 
 | 要求 | 本專案做法 |
 |---|---|
-| 建立自己的 LLM Wiki，至少 ingest 5 篇 | `sources/` 共 6 篇，`llm_wiki.py` 會檢查不得少於 5 篇 |
-| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 16 頁單檔 HTML |
+| 建立自己的 LLM Wiki，至少 ingest 5 篇 | `sources/` 共 7 篇，`llm_wiki.py` 會檢查不得少於 5 篇 |
+| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 17 頁單檔 HTML |
 | 說明 loop / graph 設計 | `design_notes.md`、簡報第 11 頁 SVG 流程圖 |
 | 重複節點 | `check ↔ regenerate` 形成迴圈，最多 3 輪 |
 | 檢查與重新生成 | `check_entry()` 驗證 5 個欄位；失敗時呼叫 `regenerate` 後回到 `check` |
@@ -97,5 +97,6 @@ python llm_wiki.py all
 3. 官方模型與記憶體指南：<https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md>
 4. 官方社群實測數據：<https://github.com/Niko1221/Strata/blob/main/docs/COMMUNITY_BENCHMARKS.md>
 5. 官方文件全集：<https://github.com/Niko1221/Strata/tree/main/docs>
+6. API 定價（用於「為什麼要本地部署」的 cost 比較）：[OpenAI](https://openai.com/api/pricing/)、[Anthropic](https://claude.com/pricing)、[Google](https://ai.google.dev/gemini-api/docs/pricing)
 
 官方示意圖已下載到 `out/media/`，並嵌入教學簡報中。每篇來源開頭都有「標題 / 來源網址 / 教材整理日期 / 資料類型」metadata。
