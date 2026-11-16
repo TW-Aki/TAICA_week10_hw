@@ -10,7 +10,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 
 ```
 week10_hw/
-├── submission.md                # 六項繳交內容（可直接貼到 NTU COOL）
+├── submission.md                # 六項繳交內容
 ├── design_notes.md              # loop / graph / 檢查流程設計說明
 ├── sources/                     # 至少 5 篇原始資料（目前 6 篇）
 │   ├── 01_strata_overview.md    # 官方 README 摘要
