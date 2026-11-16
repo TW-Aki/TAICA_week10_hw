@@ -15,7 +15,7 @@
 |---|---|---|
 | `sources/*.md` | 7 篇原始資料（唯一資料來源） | ✅ 可 |
 | `llm_wiki.py` | Wiki pipeline：ingest → chunk → index → draft → check → regenerate → reflect | ✅ 可 |
-| `build_slides.py` | 讀 Wiki 成果產生 17 頁單檔 HTML | ✅ 可 |
+| `build_slides.py` | 讀 Wiki 成果產生 18 頁單檔 HTML | ✅ 可 |
 | `README.md` / `design_notes.md` / `submission.md` / `AGENTS.md` | 文件與繳交內容 | ✅ 可 |
 | `wiki/chunks/` | 44 個切塊 txt | ❌ 生成檔，勿手改 |
 | `wiki/entries/`、`wiki/entries.json` | 6 個 Wiki 條目 | ❌ 生成檔，勿手改 |
@@ -28,7 +28,7 @@
 1. 只編輯 `sources/*.md` 與兩支 `*.py`。
 2. 重新執行：`python llm_wiki.py all`
 3. 重新產生簡報：`python build_slides.py`
-4. 檢查 `out/run_log.md` 是否仍有 FAIL → regenerate → PASS 紀錄，以及 HTML 是否仍是 17 頁。
+4. 檢查 `out/run_log.md` 是否仍有 FAIL → regenerate → PASS 紀錄，以及 HTML 是否仍是 18 頁。
 5. 絕對不要手動修改 `wiki/` 與 `out/` 底下的生成檔，下次執行會被覆蓋。
 
 ## 關鍵設計（不要輕易改動）
@@ -59,7 +59,7 @@ python llm_wiki.py ask "怎麼選模型"
 python -c "import zhconv"      # 僅檢查用，非執行依賴
 ```
 
-基本檢查：來源 7 篇、chunk 44 個、Wiki 條目 6 個、簡報 17 頁、run_log 含 FAIL → PASS 紀錄、無簡體字殘留。
+基本檢查：來源 7 篇、chunk 44 個、Wiki 條目 6 個、簡報 18 頁、run_log 含 FAIL → PASS 紀錄、無簡體字殘留。
 
 ## Git
 
