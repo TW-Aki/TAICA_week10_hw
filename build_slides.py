@@ -261,21 +261,64 @@ def build() -> Path:
     # 3.5 工作原理（官方示意圖）
     how_it_works = img_data_uri("how-it-works.svg")
     guess_check = img_data_uri("guess-and-check.svg")
-    slides.append(slide("官方原理", "Strata 如何把 125B 模型塞進小顯卡？", f"""
-    <p>官方用廚房比喻：常用的放流理台（顯卡），其餘放儲藏室（記憶體）。模型有 <strong>24,576 個專家，每字只用 10 個</strong>。</p>
+    slides.append(slide("為什麼用 Strata", "低硬體，也能跑龐大的量化模型", f"""
+    <p>一個 125B 的 MoE 模型，正常要 80GB 以上的顯存才跑得動。Strata 讓 <strong>16GB 顯卡 + 32GB RAM</strong> 的遊戲機也能跑，靠的是三件事：</p>
+    <div class="grid g3">
+      <div class="card"><h3>1 · 稀疏：不用全部算</h3><ul>
+        <li>模型有 24,576 個「專家」</li>
+        <li>每寫一個字只用其中 <strong>10 個</strong></li>
+        <li>125B 總參數，實際只動約 6B</li>
+        <li>所以不必整份塞進顯卡</li>
+      </ul></div>
+      <div class="card"><h3>2 · 分層：各司其職</h3><ul>
+        <li>熱門專家 → 顯卡 VRAM</li>
+        <li>全部專家 → 系統 RAM</li>
+        <li>查找表 → SSD</li>
+        <li>每多 1GB VRAM 約多放 700 個專家</li>
+      </ul></div>
+      <div class="card"><h3>3 · 並行 + 加速</h3><ul>
+        <li>CPU 與 GPU 同時計算，互不等待</li>
+        <li>MTP 先猜 3 個字、一次驗證</li>
+        <li>官方稱快 1.6–1.8 倍</li>
+        <li>再加 4-bit 量化，體積再砍一半</li>
+      </ul></div>
+    </div>
+    <p class="quote" style="margin-top:14px">結論：<strong>你不需要買資料中心的卡</strong>。只要記憶體夠、顯卡不太舊，就能在本機跑 100B 級別的量化模型；代價是速度比不上大卡，而且只支援特定模型。</p>
+    """))
+
+    slides.append(slide("實戰案例", "別人的 16GB 顯存實測", f"""
+    <div class="grid g2">
+      <div class="card"><h3>影片示範：DeepSeek V4.1 Flash on 16GB</h3><ul>
+        <li>頻道「碳基生物退役指南」的部署實戰</li>
+        <li>在 16GB 顯存的機器上跑大型量化模型</li>
+        <li>流程與本簡報相同：安裝 → 選模型 → 下載 → 對話</li>
+        <li><a href="https://youtu.be/2RWjxe_BKpM" style="color:#7dd3fc">youtu.be/2RWjxe_BKpM</a></li>
+      </ul></div>
+      <div class="card"><h3>官方社群數據：同樣是 16GB 級別</h3><ul>
+        <li>RTX 5060 Ti 16GB：IQ3_S 解碼 48.2 tok/s</li>
+        <li>RX 9070 16GB：IQ3_XXS 解碼 58.7 tok/s</li>
+        <li>本作業機器 RTX 5070 Ti 16GB：跑 35B 的 Q4 版本</li>
+        <li>共同點：都不是資料中心卡</li>
+      </ul></div>
+    </div>
+    <p style="margin-top:12px">所以「低硬體跑大模型」不是宣傳口號，而是官方文件、社群回報與實戰影片都能對上的結果。</p>
+    """))
+
+    slides.append(slide("官方原理圖", "它到底怎麼做到的？", f"""
+    <p>官方用廚房比喻：常用的放流理台（顯卡），其餘放儲藏室（記憶體），需要時才拿。</p>
     <div class="grid g2">
       <div class="card" style="text-align:center">
-        <img src="{how_it_works}" alt="官方專家分層示意圖" style="max-height:38vh">
+        <img src="{how_it_works}" alt="官方專家分層示意圖" style="max-height:34vh">
         <p style="font-size:13px;margin-top:8px">圖一：GPU 放熱點專家、RAM 放全部專家、SSD 放查找表<br>
         <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
       </div>
       <div class="card" style="text-align:center">
-        <img src="{guess_check}" alt="官方先猜測再驗證示意圖" style="max-height:38vh">
+        <img src="{guess_check}" alt="官方先猜測再驗證示意圖" style="max-height:34vh">
         <p style="font-size:13px;margin-top:8px">圖二：MTP 草稿最多 3 token，一次驗證，快 1.6–1.8 倍<br>
         <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
       </div>
     </div>
-    <p style="margin-top:10px">每多 1 GB VRAM 約多放 700 個專家；CPU 與 GPU 同時算，互不等待。</p>
+    <p style="margin-top:8px">同一套引擎在 NVIDIA（CUDA）與 AMD（HIP）都一樣，只是分別編譯。</p>
     """))
 
     # 5 硬體與量化
