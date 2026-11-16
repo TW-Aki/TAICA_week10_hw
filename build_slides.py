@@ -198,7 +198,19 @@ def build() -> Path:
     <p style="margin-top:8px">來源：<code>openai.com/api/pricing</code>、<code>claude.com/pricing</code>、<code>ai.google.dev/gemini-api/docs/pricing</code></p>
     """))
 
-    # 3 Strata 是什麼
+    # 3 比較（放在成本之後）
+    slides.append(slide("選型", "Ollama 與 Strata 差在哪？", """
+    <table>
+      <tr><th>工具</th><th>定位</th><th>核心技術</th><th>硬體門檻</th><th>強項</th></tr>
+      <tr><td><strong>Strata</strong></td><td>消費級跑超顯存 MoE</td><td>C++ 異構分層排程、CPU/GPU 平行</td><td>12–24G 顯卡 + 32–64G+ RAM</td><td>單併發極致優化</td></tr>
+      <tr><td>Ollama</td><td>輕量個人應用</td><td>llama.cpp / GGUF</td><td>一般 PC、Mac、甚至純 CPU</td><td>一鍵上手、模型庫完整</td></tr>
+      <tr><td>vLLM</td><td>企業級生產服務</td><td>PagedAttention + Continuous Batching</td><td>資料中心卡</td><td>高併發吞吐</td></tr>
+      <tr><td>SGLang</td><td>Complex Agent / 長文本</td><td>RadixAttention</td><td>多卡集群</td><td>前綴快取、結構化解碼</td></tr>
+    </table>
+    <p style="margin-top:14px">簡單記：<strong>Strata 是把「放不下」的模型跑起來，Ollama 是把「放得下」的模型跑得最快。</strong></p>
+    """))
+
+    # 4 Strata 是什麼
     slides.append(slide("定義", "Strata 是什麼？", f"""
     <p class="big">{esc(by_topic.get("Strata 是什麼", {}).get("definition", ""))}</p>
     <div class="grid g2" style="margin-top:18px">
@@ -233,18 +245,6 @@ def build() -> Path:
       </div>
     </div>
     <p style="margin-top:10px">每多 1 GB VRAM 約多放 700 個專家；CPU 與 GPU 同時算，互不等待。</p>
-    """))
-
-    # 4 比較
-    slides.append(slide("選型", "跟 Ollama / vLLM / SGLang 差在哪？", """
-    <table>
-      <tr><th>工具</th><th>定位</th><th>核心技術</th><th>硬體門檻</th><th>強項</th></tr>
-      <tr><td><strong>Strata</strong></td><td>消費級跑超顯存 MoE</td><td>C++ 異構分層排程、CPU/GPU 平行</td><td>12–24G 顯卡 + 32–64G+ RAM</td><td>單併發極致優化</td></tr>
-      <tr><td>Ollama</td><td>輕量個人應用</td><td>llama.cpp / GGUF</td><td>一般 PC、Mac、甚至純 CPU</td><td>一鍵上手、模型庫完整</td></tr>
-      <tr><td>vLLM</td><td>企業級生產服務</td><td>PagedAttention + Continuous Batching</td><td>資料中心卡</td><td>高併發吞吐</td></tr>
-      <tr><td>SGLang</td><td>Complex Agent / 長文本</td><td>RadixAttention</td><td>多卡集群</td><td>前綴快取、結構化解碼</td></tr>
-    </table>
-    <p style="margin-top:14px">簡單記：<strong>Strata 是把「放不下」的模型跑起來，Ollama 是把「放得下」的模型跑得最快。</strong></p>
     """))
 
     # 5 硬體與量化
