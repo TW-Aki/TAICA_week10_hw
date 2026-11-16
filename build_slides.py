@@ -199,7 +199,27 @@ def build() -> Path:
     <p style="margin-top:8px">來源：<code>openai.com/api/pricing</code>、<code>claude.com/pricing</code>、<code>ai.google.dev/gemini-api/docs/pricing</code></p>
     """))
 
-    # 3 比較（放在成本之後）
+    # 3 Strata 是什麼（先定義，再對比）
+    slides.append(slide("定義", "Strata 是什麼？", f"""
+    <p class="big">{esc(by_topic.get("Strata 是什麼", {}).get("definition", ""))}</p>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><h3>形態</h3><ul>
+        <li>桌面 App（Windows / Linux / macOS arm64）</li>
+        <li>終端機 App（<code>strata launch</code>）</li>
+        <li>開源、MIT、不需註冊帳號</li>
+      </ul></div>
+      <div class="card"><h3>主打模型</h3><ul>
+        <li><code>Qwen3.8-Flash-Next</code>（ISTA-DASLab）</li>
+        <li>量化：<code>Q2_0</code>、<code>IQ2_XS</code>、<code>IQ3_XXS</code>、<code>IQ3_S</code></li>
+        <li>Coder：<code>IQ1_M</code></li>
+      </ul></div>
+    </div>
+    """))
+
+    # 3.5 工作原理（官方示意圖）
+    how_it_works = img_data_uri("how-it-works.svg")
+    guess_check = img_data_uri("guess-and-check.svg")
+    # 4 比較（放在定義之後）
     slides.append(slide("選型 · 逐項對比", "Ollama 與 Strata 差在哪？", """
     <table>
       <tr><th>比較項目</th><th>Ollama</th><th>Strata</th></tr>
@@ -241,26 +261,6 @@ def build() -> Path:
     <p class="quote" style="margin-top:12px">兩者可以並存：小模型用 Ollama 快速驗證，真要跑大模型再開 Strata。兩邊都提供 OpenAI 相容 API，切換成本很低。</p>
     """))
 
-    # 4 Strata 是什麼
-    slides.append(slide("定義", "Strata 是什麼？", f"""
-    <p class="big">{esc(by_topic.get("Strata 是什麼", {}).get("definition", ""))}</p>
-    <div class="grid g2" style="margin-top:18px">
-      <div class="card"><h3>形態</h3><ul>
-        <li>桌面 App（Windows / Linux / macOS arm64）</li>
-        <li>終端機 App（<code>strata launch</code>）</li>
-        <li>開源、MIT、不需註冊帳號</li>
-      </ul></div>
-      <div class="card"><h3>主打模型</h3><ul>
-        <li><code>Qwen3.8-Flash-Next</code>（ISTA-DASLab）</li>
-        <li>量化：<code>Q2_0</code>、<code>IQ2_XS</code>、<code>IQ3_XXS</code>、<code>IQ3_S</code></li>
-        <li>Coder：<code>IQ1_M</code></li>
-      </ul></div>
-    </div>
-    """))
-
-    # 3.5 工作原理（官方示意圖）
-    how_it_works = img_data_uri("how-it-works.svg")
-    guess_check = img_data_uri("guess-and-check.svg")
     slides.append(slide("為什麼用 Strata", "低硬體，也能跑龐大的量化模型", f"""
     <p>一個 125B 的 MoE 模型，正常要 80GB 以上的顯存才跑得動。Strata 讓 <strong>16GB 顯卡 + 32GB RAM</strong> 的遊戲機也能跑，靠的是三件事：</p>
     <div class="grid g3">
