@@ -16,6 +16,7 @@
 | `sources/*.md` | 7 篇原始資料（唯一資料來源） | ✅ 可 |
 | `llm_wiki.py` | Wiki pipeline：ingest → chunk → index → draft → check → regenerate → reflect | ✅ 可 |
 | `build_slides.py` | 讀 Wiki 成果產生 20 頁單檔 HTML | ✅ 可 |
+| `speedtest.py` | 對執行中的本機模型測速（自動讀 API 金鑰） | ✅ 可 |
 | `README.md` / `design_notes.md` / `submission.md` / `AGENTS.md` | 文件與繳交內容 | ✅ 可 |
 | `wiki/chunks/` | 44 個切塊 txt | ❌ 生成檔，勿手改 |
 | `wiki/entries/`、`wiki/entries.json` | 6 個 Wiki 條目 | ❌ 生成檔，勿手改 |

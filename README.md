@@ -21,6 +21,7 @@ week10_hw/
 │   └── 06_teaching_outline.md   # 自行整理的教學大綱
 ├── llm_wiki.py                  # Wiki pipeline（graph + loop）
 ├── build_slides.py              # 由 Wiki 產生 HTML 簡報
+├── speedtest.py                 # 對執行中的模型測速
 ├── wiki/
 │   ├── chunks/                  # 44 個切好的 txt（含 metadata）
 │   ├── manifest.csv
