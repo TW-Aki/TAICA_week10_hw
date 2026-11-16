@@ -519,20 +519,22 @@ UPDATE.bat / update.sh # 更新</code></pre>
     """))
 
     # 13 反思
-    reflection = (OUT / "reflection.md").read_text(encoding="utf-8")
-    reflect_error = reflection.split("## 哪個節點最常出錯")[-1].split("## 限制")[0].strip()
-    slides.append(slide("REFLECTION", "反思：哪個節點最常出錯？", f"""
+    slides.append(slide("REFLECTION", "反思：最常出錯的其實是資料來源", """
     <div class="grid g2">
-      <div class="card"><h3>最常出錯：draft → check</h3><p>{esc(reflect_error[:850])}</p></div>
+      <div class="card"><h3>不是程式出錯，是資料出錯</h3><ul>
+        <li><strong>過時</strong>：部落格寫的是 0.1.x 版，官方早已更新到 0.2.15</li>
+        <li><strong>不夠權威</strong>：媒體說「比 llama.cpp 快 6 倍」，社群實測只有約 2 倍</li>
+        <li><strong>與實機不符</strong>：官方說 12–24G 可跑，但 128K context 在 16G 上直接爆顯存</li>
+      </ul></div>
       <div class="card"><h3>我怎麼調整檢查流程</h3><ul>
-        <li>把 definition 下限（≥20 字）寫進 validator</li>
-        <li>sources / related 改為必要欄位，missing 只回補缺失鍵</li>
-        <li>把教學大綱從 context 排除，避免定義變成標題列表</li>
-        <li>為六個主題各寫檢索詞（TOPIC_QUERIES）</li>
-        <li>本地模板抽取可讀性有限 → 有 API key 時換真實 LLM</li>
+        <li>來源分級：官方文件 &gt; 官方 benchmark &gt; 社群回報 &gt; 媒體評論，只留官方</li>
+        <li>每篇補 metadata（網址、日期、類型），過時才看得出來</li>
+        <li>同一數字至少兩個來源，衝突時標註而不是二選一</li>
+        <li><strong>實際操作驗證</strong>：跑 speedtest.py 得到 22–26 tok/s，與官方 48.2 對不上，追查後發現是模型不同</li>
+        <li>把驗證結果寫回 Wiki：新增「為什麼要本地」一篇，把知乎那篇換成官方 HOW_IT_WORKS</li>
       </ul></div>
     </div>
-    <p class="quote" style="margin-top:16px">最大的收穫：與其相信 LLM 一次就寫對，不如把「檢查—修正」做成 graph 裡會重複執行的節點。</p>
+    <p class="quote" style="margin-top:14px">程式節點的錯誤，validator 抓得到；<strong>資料的錯誤，只有實際跑一次才會露出來</strong>。Wiki 的品質上限，取決於你餵給它的來源。</p>
     """))
 
     # 14 總結
