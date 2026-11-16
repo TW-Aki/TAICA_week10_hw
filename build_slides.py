@@ -163,6 +163,18 @@ def build() -> Path:
         '</section>'
     )
 
+    # 1.5 目錄
+    slides.append(slide("目錄", "這份簡報的五個段落", """
+    <div class="grid g2">
+      <div class="card"><h3>一 · 為什麼要本地</h3><p>隱私風險、API 成本，以及哪些資料不該上雲。</p></div>
+      <div class="card"><h3>二 · 認識 Strata</h3><p>它是什麼、為什麼能用低硬體跑大模型、原理長什麼樣。</p></div>
+      <div class="card"><h3>三 · 怎麼選、怎麼裝</h3><p>與 Ollama 的差異、硬體門檻、安裝與第一次啟動。</p></div>
+      <div class="card"><h3>四 · 跑得如何</h3><p>官方數據、我的實測、為什麼有差距、限制在哪。</p></div>
+      <div class="card"><h3>五 · 這份簡報怎麼做的</h3><p>LLM Wiki 的 loop / graph、檢查與重新生成、反思。</p></div>
+    </div>
+    <p class="quote" style="margin-top:14px">五段可以分開看；最後一段說明這份簡報本身是怎麼被產生的。</p>
+    """))
+
     # 2 為什麼本地部署
     slides.append(slide("動機 · 隱私", "為什麼要本地部署？先講資料風險", """
     <p>用雲端 API 時，你貼進去的文字會被傳到對方的伺服器。有些內容<strong>根本不適合流出公司或你家</strong>：</p>
@@ -220,6 +232,49 @@ def build() -> Path:
     how_it_works = img_data_uri("how-it-works.svg")
     guess_check = img_data_uri("guess-and-check.svg")
     # 4 比較（放在定義之後）
+    slides.append(slide("為什麼用 Strata", "低硬體，也能跑龐大的量化模型", f"""
+    <p>一個 125B 的 MoE 模型，正常要 80GB 以上的顯存才跑得動。Strata 讓 <strong>16GB 顯卡 + 32GB RAM</strong> 的遊戲機也能跑，靠的是三件事：</p>
+    <div class="grid g3">
+      <div class="card"><h3>1 · 稀疏：不用全部算</h3><ul>
+        <li>模型有 24,576 個「專家」</li>
+        <li>每寫一個字只用其中 <strong>10 個</strong></li>
+        <li>125B 總參數，實際只動約 6B</li>
+        <li>所以不必整份塞進顯卡</li>
+      </ul></div>
+      <div class="card"><h3>2 · 分層：各司其職</h3><ul>
+        <li>熱門專家 → 顯卡 VRAM</li>
+        <li>全部專家 → 系統 RAM</li>
+        <li>查找表 → SSD</li>
+        <li>每多 1GB VRAM 約多放 700 個專家</li>
+      </ul></div>
+      <div class="card"><h3>3 · 並行 + 加速</h3><ul>
+        <li>CPU 與 GPU 同時計算，互不等待</li>
+        <li>MTP 先猜 3 個字、一次驗證</li>
+        <li>官方稱快 1.6–1.8 倍</li>
+        <li>再加 4-bit 量化，體積再砍一半</li>
+      </ul></div>
+    </div>
+    <p class="quote" style="margin-top:14px">結論：<strong>你不需要買資料中心的卡</strong>。只要記憶體夠、顯卡不太舊，就能在本機跑 100B 級別的量化模型；代價是速度比不上大卡，而且只支援特定模型。</p>
+    <p style="margin-top:8px;font-size:13px">實戰參考：<a href="https://youtu.be/2RWjxe_BKpM" style="color:#7dd3fc">DeepSeek V4.1 Flash 16GB 顯存部署實戰</a>（碳基生物退役指南）——同樣是在 16GB 顯存的機器上跑大型量化模型。</p>
+    """))
+
+    slides.append(slide("官方原理圖", "它到底怎麼做到的？", f"""
+    <p>官方用廚房比喻：常用的放流理台（顯卡），其餘放儲藏室（記憶體），需要時才拿。</p>
+    <div class="grid g2">
+      <div class="card" style="text-align:center">
+        <img src="{how_it_works}" alt="官方專家分層示意圖" style="max-height:34vh">
+        <p style="font-size:13px;margin-top:8px">圖一：GPU 放熱點專家、RAM 放全部專家、SSD 放查找表<br>
+        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
+      </div>
+      <div class="card" style="text-align:center">
+        <img src="{guess_check}" alt="官方先猜測再驗證示意圖" style="max-height:34vh">
+        <p style="font-size:13px;margin-top:8px">圖二：MTP 草稿最多 3 token，一次驗證，快 1.6–1.8 倍<br>
+        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
+      </div>
+    </div>
+    <p style="margin-top:8px">同一套引擎在 NVIDIA（CUDA）與 AMD（HIP）都一樣，只是分別編譯。</p>
+    """))
+
     slides.append(slide("選型 · 逐項對比", "Ollama 與 Strata 差在哪？", """
     <table>
       <tr><th>比較項目</th><th>Ollama</th><th>Strata</th></tr>
@@ -259,66 +314,6 @@ def build() -> Path:
       </ul></div>
     </div>
     <p class="quote" style="margin-top:12px">兩者可以並存：小模型用 Ollama 快速驗證，真要跑大模型再開 Strata。兩邊都提供 OpenAI 相容 API，切換成本很低。</p>
-    """))
-
-    slides.append(slide("為什麼用 Strata", "低硬體，也能跑龐大的量化模型", f"""
-    <p>一個 125B 的 MoE 模型，正常要 80GB 以上的顯存才跑得動。Strata 讓 <strong>16GB 顯卡 + 32GB RAM</strong> 的遊戲機也能跑，靠的是三件事：</p>
-    <div class="grid g3">
-      <div class="card"><h3>1 · 稀疏：不用全部算</h3><ul>
-        <li>模型有 24,576 個「專家」</li>
-        <li>每寫一個字只用其中 <strong>10 個</strong></li>
-        <li>125B 總參數，實際只動約 6B</li>
-        <li>所以不必整份塞進顯卡</li>
-      </ul></div>
-      <div class="card"><h3>2 · 分層：各司其職</h3><ul>
-        <li>熱門專家 → 顯卡 VRAM</li>
-        <li>全部專家 → 系統 RAM</li>
-        <li>查找表 → SSD</li>
-        <li>每多 1GB VRAM 約多放 700 個專家</li>
-      </ul></div>
-      <div class="card"><h3>3 · 並行 + 加速</h3><ul>
-        <li>CPU 與 GPU 同時計算，互不等待</li>
-        <li>MTP 先猜 3 個字、一次驗證</li>
-        <li>官方稱快 1.6–1.8 倍</li>
-        <li>再加 4-bit 量化，體積再砍一半</li>
-      </ul></div>
-    </div>
-    <p class="quote" style="margin-top:14px">結論：<strong>你不需要買資料中心的卡</strong>。只要記憶體夠、顯卡不太舊，就能在本機跑 100B 級別的量化模型；代價是速度比不上大卡，而且只支援特定模型。</p>
-    """))
-
-    slides.append(slide("實戰案例", "別人的 16GB 顯存實測", f"""
-    <div class="grid g2">
-      <div class="card"><h3>影片示範：DeepSeek V4.1 Flash on 16GB</h3><ul>
-        <li>頻道「碳基生物退役指南」的部署實戰</li>
-        <li>在 16GB 顯存的機器上跑大型量化模型</li>
-        <li>流程與本簡報相同：安裝 → 選模型 → 下載 → 對話</li>
-        <li><a href="https://youtu.be/2RWjxe_BKpM" style="color:#7dd3fc">youtu.be/2RWjxe_BKpM</a></li>
-      </ul></div>
-      <div class="card"><h3>官方社群數據：同樣是 16GB 級別</h3><ul>
-        <li>RTX 5060 Ti 16GB：IQ3_S 解碼 48.2 tok/s</li>
-        <li>RX 9070 16GB：IQ3_XXS 解碼 58.7 tok/s</li>
-        <li>本作業機器 RTX 5070 Ti 16GB：跑 35B 的 Q4 版本</li>
-        <li>共同點：都不是資料中心卡</li>
-      </ul></div>
-    </div>
-    <p style="margin-top:12px">所以「低硬體跑大模型」不是宣傳口號，而是官方文件、社群回報與實戰影片都能對上的結果。</p>
-    """))
-
-    slides.append(slide("官方原理圖", "它到底怎麼做到的？", f"""
-    <p>官方用廚房比喻：常用的放流理台（顯卡），其餘放儲藏室（記憶體），需要時才拿。</p>
-    <div class="grid g2">
-      <div class="card" style="text-align:center">
-        <img src="{how_it_works}" alt="官方專家分層示意圖" style="max-height:34vh">
-        <p style="font-size:13px;margin-top:8px">圖一：GPU 放熱點專家、RAM 放全部專家、SSD 放查找表<br>
-        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
-      </div>
-      <div class="card" style="text-align:center">
-        <img src="{guess_check}" alt="官方先猜測再驗證示意圖" style="max-height:34vh">
-        <p style="font-size:13px;margin-top:8px">圖二：MTP 草稿最多 3 token，一次驗證，快 1.6–1.8 倍<br>
-        <span style="color:#6f86ad">來源：Strata 官方 docs/HOW_IT_WORKS.md</span></p>
-      </div>
-    </div>
-    <p style="margin-top:8px">同一套引擎在 NVIDIA（CUDA）與 AMD（HIP）都一樣，只是分別編譯。</p>
     """))
 
     # 5 硬體與量化
@@ -371,6 +366,25 @@ UPDATE.bat / update.sh # 更新</code></pre>
     </div>
     """))
 
+    # 7.5 實際部署
+    slides.append(slide("實際部署", "我在這台機器上真的跑起來了", f"""
+    <div class="grid g2">
+      <div class="card" style="text-align:center">
+        <img src="{img_data_uri('04_make_it_yours.png')}" alt="資源分配" style="max-height:30vh">
+        <p style="font-size:12px;margin-top:6px">步驟 4：資源分配，保留 5–8GB 給系統</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <img src="{img_data_uri('05_chat_first_reply.png')}" alt="第一次對話" style="max-height:30vh">
+        <p style="font-size:12px;margin-top:6px">第一次對話：22 tok/s，繁體中文正常</p>
+      </div>
+    </div>
+    <ul style="margin-top:10px">
+      <li>環境：RTX 5070 Ti 16GB + 32GB RAM + Ryzen 7 9800X3D</li>
+      <li>踩到的坑：預設 128K context 直接爆顯存，改成 32K 才開得起來</li>
+      <li>引擎實測：65/256 個專家進顯卡，18.75GB 放 RAM，其餘由 8 條 CPU 執行緒分擔</li>
+    </ul>
+    """))
+
     # 8 API
     slides.append(slide("串接", "把 Strata 變成其他工具的後端", """
     <p>Strata 在本機 <code>localhost</code> 同時提供 <strong>OpenAI 相容</strong>與 <strong>Anthropic 相容</strong> API，且支援圖片輸入。</p>
@@ -381,17 +395,6 @@ UPDATE.bat / update.sh # 更新</code></pre>
       <span class="tag">oh-my-pi</span><span class="tag">pi.dev</span><span class="tag">Hermes Agent</span><span class="tag">OpenClaw</span>
     </div>
     <p style="margin-top:14px">做法：把工具的 API base URL 指向 Strata 本機位置，model 欄填 Strata 提供的模型名稱。敏感資料不必出電腦。</p>
-    """))
-
-    # 9 常見問題
-    slides.append(slide("限制", "常見問題與效能瓶頸", f"""
-    <div class="grid g2">
-      <div class="card"><h3>模型支援較窄</h3><p>為壓榨特定 MoE 的效率，Strata 不像 Ollama 能隨意拉任何小模型。</p></div>
-      <div class="card"><h3>記憶體與 CPU 門檻</h3><p>全量專家駐留 RAM，通常要 32–64GB，且 CPU 需支援 AVX2 / AVX-512。</p></div>
-      <div class="card"><h3>低量化劣化</h3><p>IQ2 / Q4 等極低 bit 會讓複雜推理能力下降。</p></div>
-      <div class="card"><h3>併發不是強項</h3><p>針對 Batch=1 優化；若要上百人同時用，應改選 vLLM。</p></div>
-    </div>
-    <p class="quote" style="margin-top:14px">{esc(by_topic.get("常見問題與效能瓶頸", {}).get("definition", ""))}</p>
     """))
 
     # 9.5 官方社群實測
@@ -435,6 +438,17 @@ UPDATE.bat / update.sh # 更新</code></pre>
       </ul></div>
     </div>
     <p class="quote" style="margin-top:14px">換算下來 22–26 tok/s ≈ 每秒 17–20 個中文字，日常問答夠用；要更快只能換更大顯卡，或改用更小的模型。</p>
+    """))
+
+    # 9 常見問題
+    slides.append(slide("限制", "常見問題與效能瓶頸", f"""
+    <div class="grid g2">
+      <div class="card"><h3>模型支援較窄</h3><p>為壓榨特定 MoE 的效率，Strata 不像 Ollama 能隨意拉任何小模型。</p></div>
+      <div class="card"><h3>記憶體與 CPU 門檻</h3><p>全量專家駐留 RAM，通常要 32–64GB，且 CPU 需支援 AVX2 / AVX-512。</p></div>
+      <div class="card"><h3>低量化劣化</h3><p>IQ2 / Q4 等極低 bit 會讓複雜推理能力下降。</p></div>
+      <div class="card"><h3>併發不是強項</h3><p>針對 Batch=1 優化；若要上百人同時用，應改選 vLLM。</p></div>
+    </div>
+    <p class="quote" style="margin-top:14px">{esc(by_topic.get("常見問題與效能瓶頸", {}).get("definition", ""))}</p>
     """))
 
     # 10 Wiki 摘要
@@ -522,7 +536,7 @@ UPDATE.bat / update.sh # 更新</code></pre>
     """))
 
     # 14 總結
-    slides.append(slide("總結", "帶得走的五句話", """
+    slides.append(slide("總結", "帶得走的六句話", """
     <div class="grid g2">
       <div class="card"><h3>技術面</h3><ul>
         <li>Strata 適合「低顯卡 + 大記憶體」跑大型 MoE</li>
