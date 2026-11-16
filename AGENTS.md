@@ -17,7 +17,7 @@
 | `llm_wiki.py` | Wiki pipeline：ingest → chunk → index → draft → check → regenerate → reflect | ✅ 可 |
 | `build_slides.py` | 讀 Wiki 成果產生 16 頁單檔 HTML | ✅ 可 |
 | `README.md` / `design_notes.md` / `submission.md` / `AGENTS.md` | 文件與繳交內容 | ✅ 可 |
-| `wiki/chunks/` | 36 個切塊 txt | ❌ 生成檔，勿手改 |
+| `wiki/chunks/` | 35 個切塊 txt | ❌ 生成檔，勿手改 |
 | `wiki/entries/`、`wiki/entries.json` | 6 個 Wiki 條目 | ❌ 生成檔，勿手改 |
 | `wiki/manifest.csv` | chunk 清單 | ❌ 生成檔，勿手改 |
 | `out/run_log.md`、`out/reflection.md` | 執行紀錄與反思 | ❌ 生成檔，勿手改 |
@@ -59,7 +59,7 @@ python llm_wiki.py ask "怎麼選模型"
 python -c "import zhconv"      # 僅檢查用，非執行依賴
 ```
 
-基本檢查：來源 6 篇、chunk 36 個、Wiki 條目 6 個、簡報 16 頁、run_log 含 FAIL → PASS 紀錄、無簡體字殘留。
+基本檢查：來源 6 篇、chunk 35 個、Wiki 條目 6 個、簡報 16 頁、run_log 含 FAIL → PASS 紀錄、無簡體字殘留。
 
 ## Git
 

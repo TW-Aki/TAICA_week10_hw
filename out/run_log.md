@@ -1,5 +1,5 @@
 === LLM Wiki 執行紀錄 ===
-時間：2026-11-16T23:45:58
+時間：2026-11-16T23:48:55
 
 [node:ingest] 讀取來源文件
   共 ingest 6 篇：01_strata_overview, 02_install_guide, 03_model_and_memory, 04_api_connect, 05_compare_tools, 06_teaching_outline

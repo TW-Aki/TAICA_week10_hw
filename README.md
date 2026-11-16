@@ -22,7 +22,7 @@ week10_hw/
 ├── llm_wiki.py                  # Wiki pipeline（graph + loop）
 ├── build_slides.py              # 由 Wiki 產生 HTML 簡報
 ├── wiki/
-│   ├── chunks/                  # 36 個切好的 txt（含 metadata）
+│   ├── chunks/                  # 35 個切好的 txt（含 metadata）
 │   ├── manifest.csv
 │   ├── entries/                 # 6 個 Wiki 條目（markdown）
 │   └── entries.json
@@ -51,6 +51,13 @@ python llm_wiki.py ask "怎麼選模型"
 ```
 
 完成後直接用瀏覽器開 `out/strata_deployment_teaching.html`，可用 ← → 或空白鍵翻頁。
+
+線上直接看簡報（不用下載）：
+
+- htmlpreview：https://htmlpreview.github.io/?https://github.com/TW-Aki/TAICA_week10_hw/blob/main/out/strata_deployment_teaching.html
+- GitHub Pages：https://tw-aki.github.io/TAICA_week10_hw/
+
+> GitHub 對 `.html` 檔預設顯示原始碼，Repo 裡的檔案連結不會直接渲染；請用上面的網址。GitHub Pages 需在 repo 的 Settings → Pages → Source 選擇 `gh-pages` branch 後才會生效（分支已建立好）。
 
 ---
 

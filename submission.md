@@ -22,7 +22,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 | 成果 | 內容 | 檔案 |
 |---|---|---|
 | 來源文件 | 6 篇（附標題／來源網址／日期／資料類型） | `sources/01`～`06_strata_*.md` |
-| 切塊 | 36 個 txt，每檔含 metadata 與 `【內容】` | `wiki/chunks/*.txt` |
+| 切塊 | 35 個 txt，每檔含 metadata 與 `【內容】` | `wiki/chunks/*.txt` |
 | 清單 | chunk 與來源對照 | `wiki/manifest.csv` |
 | Wiki 條目 | 6 個條目，每個有定義、重點、來源、關聯 | `wiki/entries/*.md` |
 | 結構化資料 | 供簡報產生器讀取 | `wiki/entries.json` |
@@ -32,10 +32,13 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 
 ## 三、教學 HTML 簡報連結
 
+- **線上直接開（推薦）**：https://htmlpreview.github.io/?https://github.com/TW-Aki/TAICA_week10_hw/blob/main/out/strata_deployment_teaching.html
 - **檔案**：`week10_hw/out/strata_deployment_teaching.html`
-- **開啟方式**：直接用瀏覽器開啟（單檔，不需伺服器、不依賴外部 CDN）
+- **開啟方式**：點上面連結直接在瀏覽器渲染；或下載檔案用瀏覽器開啟（單檔，不依賴外部 CDN）
 - **操作**：← → 或空白鍵翻頁
 - **頁數**：16 頁
+
+> 註：GitHub 對 `.html` 檔預設顯示原始碼，直接用 repo 裡的檔案連結會看到程式碼；上面的 htmlpreview 連結才會渲染成簡報。
 
 章節：封面 → 為什麼本地部署 → Strata 是什麼 → **官方工作原理（內嵌官方示意圖）** → 與 Ollama/vLLM/SGLang 比較 → 硬體與量化 → 三條安裝路線 → 第一次啟動 → API 串接 → 常見問題 → **官方社群實測數據** → Wiki 如何產生簡報 → **Graph 設計圖（SVG）** → **Loop 執行紀錄** → **反思** → 總結。
 
@@ -45,7 +48,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 
 ```mermaid
 flowchart LR
-    A[ingest 6 篇] --> B[chunk 36 塊]
+    A[ingest 6 篇] --> B[chunk 35 塊]
     B --> C[index 檢索]
     C --> D[draft 草稿]
     D --> E{check 檢查}
@@ -80,10 +83,10 @@ flowchart LR
   03_model_and_memory, 04_api_connect, 05_compare_tools, 06_teaching_outline
 
 [node:chunk] 切塊
-  產生 36 個 chunk -> wiki/chunks/、wiki/manifest.csv
+  產生 35 個 chunk -> wiki/chunks/、wiki/manifest.csv
 
 [node:index] 建立索引
-  索引 36 個 chunk
+  索引 35 個 chunk
 
 [node:draft] 主題：常見問題與效能瓶頸
   檢索命中：03_model_and_memory_002(37.75),
@@ -102,7 +105,7 @@ flowchart LR
   wiki/entries/ (6 個條目)
 ```
 
-統計：6 篇來源 → 36 個 chunk → 6 個條目 → 累計 7 輪檢查 → 6 個條目全數通過（其中 1 個走了 2 輪）。
+統計：6 篇來源 → 35 個 chunk → 6 個條目 → 累計 7 輪檢查 → 6 個條目全數通過（其中 1 個走了 2 輪）。
 
 ---
 

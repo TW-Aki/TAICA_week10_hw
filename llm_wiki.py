@@ -194,6 +194,9 @@ def chunk_docs(docs: list[Doc]) -> list[Chunk]:
 
 def export_chunks(chunks: list[Chunk], docs: list[Doc]) -> None:
     CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
+    # 先清掉舊 chunk，避免來源改動後殘留舊檔造成數量不一致
+    for old in CHUNKS_DIR.glob("*.txt"):
+        old.unlink()
     for c in chunks:
         content = (
             f"標題：{c.title}｜{c.section}\n"

@@ -20,7 +20,7 @@ ingest → chunk → index → draft → check
 | 節點 | 做什麼 | 輸出 |
 |---|---|---|
 | `ingest` | 讀 `sources/*.md`，解析標題、來源網址、日期、資料類型；檢查至少 5 篇，不足即停止 | `Doc` 物件 |
-| `chunk` | 依 Markdown 標題切小節，再依 700 字切段 | `wiki/chunks/*.txt`、`manifest.csv`（36 塊） |
+| `chunk` | 依 Markdown 標題切小節，再依 700 字切段 | `wiki/chunks/*.txt`、`manifest.csv`（35 塊） |
 | `index` | 字元 unigram + bigram + TF-IDF Lite | 可檢索的索引 |
 | `draft` | 用檢索到的 chunk 當 context，請 LLM 產生結構化 Wiki 條目 | 6 個條目草稿 |
 | `check` | 驗證 5 個欄位是否符合格式 | PASS / FAIL + 缺失欄位 |
@@ -135,4 +135,4 @@ for round_no in range(1, MAX_ROUNDS + 1):
 
 ## 八、可直接貼的「簡短說明」
 
-> 我的 Agent 式 Wiki pipeline 把流程畫成一個 graph：先 ingest 6 篇本地文件、切成 36 個 chunk、建立 bigram + TF-IDF 索引，再針對六個主題檢索並請 LLM 產生 Wiki 條目草稿。關鍵設計是 check 與 regenerate 形成一個可重複的迴圈：驗證器檢查標題、定義、重點、來源網址與關聯條目五個欄位，若失敗就把缺失欄位帶回 prompt 重新生成，最多三輪；實際執行中「常見問題」條目在第一輪缺少來源與關聯，經 regenerate 後第二輪通過，這個紀錄被存到 run_log.md。最後 reflect 節點統計通過率與輪數，寫出限制與改進，並把 Wiki 條目與執行紀錄一起交給 build_slides.py，產生 16 頁的單檔教學 HTML 簡報。
+> 我的 Agent 式 Wiki pipeline 把流程畫成一個 graph：先 ingest 6 篇本地文件、切成 35 個 chunk、建立 bigram + TF-IDF 索引，再針對六個主題檢索並請 LLM 產生 Wiki 條目草稿。關鍵設計是 check 與 regenerate 形成一個可重複的迴圈：驗證器檢查標題、定義、重點、來源網址與關聯條目五個欄位，若失敗就把缺失欄位帶回 prompt 重新生成，最多三輪；實際執行中「常見問題」條目在第一輪缺少來源與關聯，經 regenerate 後第二輪通過，這個紀錄被存到 run_log.md。最後 reflect 節點統計通過率與輪數，寫出限制與改進，並把 Wiki 條目與執行紀錄一起交給 build_slides.py，產生 16 頁的單檔教學 HTML 簡報。
