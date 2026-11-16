@@ -516,6 +516,7 @@ UPDATE.bat / update.sh # 更新</code></pre>
     <p> validator 會檢查五件事：<code>title</code>、<code>definition</code>（≥20 字）、<code>bullets</code>（≥3）、<code>sources</code>（要有網址）、<code>related</code>（≥1）。</p>
     <p>下面是實際執行紀錄：第一輪草稿少了來源與關聯 → <span class="badge-bad">FAIL</span> → regenerate 補齊 → 回到 check → <span class="badge-ok">PASS</span>。</p>
     <pre class="log"><code>{esc(log_slice)}</code></pre>
+    <p style="margin-top:8px;font-size:13px">繳交前複查：簡體殘留 0 個、來源全部換成官方文件、實測 22–26 tok/s 與官方數字交叉比對、23 頁簡報在 GitHub 與 htmlpreview 均可正常開啟。</p>
     """))
 
     # 13 反思
