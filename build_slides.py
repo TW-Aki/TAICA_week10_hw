@@ -370,12 +370,12 @@ UPDATE.bat / update.sh # 更新</code></pre>
     slides.append(slide("實際部署", "我在這台機器上真的跑起來了", f"""
     <div class="grid g2">
       <div class="card" style="text-align:center">
-        <img src="{img_data_uri('04_make_it_yours.png')}" alt="資源分配" style="max-height:30vh">
-        <p style="font-size:12px;margin-top:6px">步驟 4：資源分配，保留 5–8GB 給系統</p>
+        <img src="{img_data_uri('03_prepare.png')}" alt="下載模型" style="max-height:30vh">
+        <p style="font-size:12px;margin-top:6px">步驟 3：下載 22.9GB 模型</p>
       </div>
       <div class="card" style="text-align:center">
-        <img src="{img_data_uri('05_chat_first_reply.png')}" alt="第一次對話" style="max-height:30vh">
-        <p style="font-size:12px;margin-top:6px">第一次對話：22 tok/s，繁體中文正常</p>
+        <img src="{img_data_uri('04_make_it_yours.png')}" alt="資源分配" style="max-height:30vh">
+        <p style="font-size:12px;margin-top:6px">步驟 4：資源分配，保留 5–8GB 給系統</p>
       </div>
     </div>
     <ul style="margin-top:10px">
@@ -383,6 +383,27 @@ UPDATE.bat / update.sh # 更新</code></pre>
       <li>踩到的坑：預設 128K context 直接爆顯存，改成 32K 才開得起來</li>
       <li>引擎實測：65/256 個專家進顯卡，18.75GB 放 RAM，其餘由 8 條 CPU 執行緒分擔</li>
     </ul>
+    """))
+
+    # 7.7 實機展示
+    slides.append(slide("實機展示", "這是真的跑起來的畫面", f"""
+    <div class="grid g2" style="align-items:start">
+      <div class="card" style="text-align:center;padding:12px">
+        <img src="{img_data_uri('05_chat_first_reply.png')}" alt="實機對話畫面" style="max-height:44vh;border-radius:8px">
+        <p style="font-size:12px;margin-top:6px;color:#6f86ad">本機截圖：Qwen3.6-35B-A3B · UD-Q4_K_XL · GPU1</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px"><h3>環境</h3>
+          <p style="font-size:14px">RTX 5070 Ti 16GB｜32GB RAM｜Ryzen 7 9800X3D｜context 32K</p></div>
+        <div class="card" style="margin-bottom:12px"><h3>實際輸出節錄（繁中）</h3>
+          <p style="font-size:13px;line-height:1.7">「MoE（混合專家）模型是一種將大型神經網絡拆分為多個獨立「專家」子網絡，並通過門控機制動態選擇最相關專家來處理特定輸入的架構，從而以較低的計算成本實現超大規模模型。」</p>
+          <p style="font-size:13px;line-height:1.7;margin-top:8px">「本地部署大型語言模型正成為企業與個人用戶日益重視的解決方案，其核心優勢在於數據隱私與完全控制……」</p></div>
+        <div class="card"><h3>速度</h3>
+          <p style="font-size:20px"><strong>25.6</strong> / <strong>24.9</strong> / <strong>22.3</strong> tok/s</p>
+          <p style="font-size:12px">短問答／中文生成／2K prompt，皆為 speedtest.py 三輪中位數</p></div>
+      </div>
+    </div>
+    <p style="margin-top:8px;font-size:13px">以上皆為本機實際執行結果，不是示意圖；完整紀錄見 <code>out/操作紀錄.md</code>。</p>
     """))
 
     # 8 API
