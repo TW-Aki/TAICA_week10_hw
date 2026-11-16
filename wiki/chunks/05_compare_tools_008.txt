@@ -1,0 +1,9 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜選擇建議
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+- 12~16GB 顯卡 + 64GB 記憶體、想離線跑大型 MoE coding 模型：選 Strata。
+- Mac、辦公筆電、想零配置跑 7B~32B：選 Ollama。
+- 企業後台、私有雲 API、上百人併發：選 vLLM。
+- 多輪工作流、多 Agent、需要前綴快取：選 SGLang。

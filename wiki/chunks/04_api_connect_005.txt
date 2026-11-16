@@ -1,0 +1,9 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜實作重點
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+1. 先 `strata launch` 讓模型跑起來。
+2. 再執行 `strata connect` 看設定說明。
+3. 在外部工具裡把 API base URL 指向 Strata 的本機位置，model 欄位填 Strata 提供的模型名稱。
+4. 因為是本機 API，資料不用出電腦，適合處理敏感文件。

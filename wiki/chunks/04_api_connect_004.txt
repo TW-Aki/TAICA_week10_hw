@@ -1,0 +1,6 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜為什麼這很重要
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+本地部署的價值不只是「離線聊天」，而是把原本要花錢打 API 的工作流（寫程式、Agent、文件處理）整個搬到本機。Strata 選擇相容兩大協定，降低了轉換成本。

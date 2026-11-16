@@ -1,0 +1,20 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜strata connect
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+```bash
+strata connect
+```
+
+用途：印出或引導你完成把 Strata 接到外部工具的設定。README 明確列出的工具包括：
+
+- Claude Code
+- Codex CLI
+- OpenCode
+- oh-my-pi
+- pi.dev
+- Hermes Agent
+- OpenClaw
+
+以及更多透過 OpenAI / Anthropic 相容 API 接入的工具。

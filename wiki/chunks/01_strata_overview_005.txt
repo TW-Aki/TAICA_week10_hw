@@ -1,0 +1,18 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜支援平台
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+作業系統：Windows、Linux、macOS（arm64）。
+
+GPU 硬體清單：
+
+- NVIDIA GeForce RTX 20 / 30 / 40 / 50 系列
+- AMD Radeon RX 7700 / 7800 / 7900
+- AMD Radeon RX 9060 / 9070
+- AMD AI PRO R9700
+- AMD Radeon RX 6800 / 6900（experimental）
+- Intel Arc（Linux）
+- Apple Silicon M1 以上
+- AMD Ryzen AI Max（Strix Halo）
+- NVIDIA DGX Spark（Linux）

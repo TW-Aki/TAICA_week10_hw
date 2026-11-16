@@ -1,0 +1,9 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜併發與吞吐
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+- Strata：針對單併發（Batch=1）極致優化
+- Ollama：單併發尚可，併發擴充能力較弱
+- vLLM：針對吞吐量（Throughput）調校，極高多併發吞吐
+- SGLang：針對吞吐量調校，在多輪對話與樹搜尋特別高效

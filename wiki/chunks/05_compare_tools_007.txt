@@ -1,0 +1,8 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜Strata 的局限
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+1. 模型支援較單一，主要針對特定大型稀疏 MoE 調校，不像 Ollama 能隨意拉小模型。
+2. 對系統記憶體與 CPU 有硬門檻，通常要 32~64GB RAM 與支援 AVX2/AVX-512 的現代多核 CPU。
+3. 低 bit 量化（如 IQ2_XS、Q4）會讓複雜推理能力一定程度劣化。

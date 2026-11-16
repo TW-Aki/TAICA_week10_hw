@@ -1,0 +1,8 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜Strata 的技術原理（評論所述）
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+1. 多級分層專家管理（Expert Tiering）：GPU VRAM 放注意力層、路由器、共享專家、輸出頭與熱點專家池；Host RAM 鎖住全部專家；NVMe SSD 放大型靜態查找表，靠 page cache 按需讀取。
+2. CPU 與 GPU 異構平行：token 路由到冷專家時，直接用 CPU 的 AVX2 / AVX-512 在記憶體內計算，gpu 同時算熱門部分，兩條管線重疊，避開 PCIe 瓶頸。
+3. 投機解碼與多 token 預測（MTP）：單次前向驗證多個候選 token。評論聲稱在 RTX 4070/5070（12GB）+ 64GB 記憶體的機器上，可把 125B MoE 推到 50~90+ token/s。

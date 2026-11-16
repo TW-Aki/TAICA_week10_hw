@@ -1,0 +1,8 @@
+標題：Strata 安裝與第一次啟動教學｜常見誤區
+來源網址：https://github.com/Niko1221/Strata#installation
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+- 以為要註冊帳號：README 明確寫「No account needed」。
+- 以為一定要 NVIDIA：官方列出 AMD、Intel Arc、Apple Silicon、Ryzen AI Max、DGX Spark 等支援。
+- 以為裝完就能用任何模型：實際上 Strata 主要針對特定模型與量化 pack 調校，選模型要看 `docs/MODELS.md`。

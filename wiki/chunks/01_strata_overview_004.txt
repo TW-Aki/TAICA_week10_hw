@@ -1,0 +1,10 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜快速開始
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+```bash
+strata launch
+```
+
+執行後依照提示下載並啟動模型即可。`strata connect` 則用來查看怎麼把 Strata 接到外部工具。

@@ -1,0 +1,11 @@
+標題：Strata 安裝與第一次啟動教學｜路線 A：桌面 App（最簡單）
+來源網址：https://github.com/Niko1221/Strata#installation
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+1. 到 GitHub Releases 頁面下載安裝檔。
+2. Windows 用 `Strata-0.2.15-windows-x64-setup.exe`，Linux 用 `.AppImage`，macOS 用 `.dmg`（arm64）。
+3. 安裝後開啟 App，可直接聊天。
+4. README 說明：首次啟動時，App 會根據你的顯卡自動下載對應的推理引擎。
+
+適合：不想碰終端機、只想試試看的人。

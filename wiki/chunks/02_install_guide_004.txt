@@ -1,0 +1,8 @@
+標題：Strata 安裝與第一次啟動教學｜路線 C：從原始碼或 Docker 建置
+來源網址：https://github.com/Niko1221/Strata#installation
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+README 另外提供 `Build from source`、`Docker`、`Full install guide` 三個入口。倉庫內可見 `Dockerfile`、`docker/`、`CMakeLists.txt`、`CMakePresets.json`、`requirements.txt`、`requirements-build.txt`、`requirements-dev.txt`、`packaging/`。
+
+適合：需要改程式、打包或部署在特殊環境的人。

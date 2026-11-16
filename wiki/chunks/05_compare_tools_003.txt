@@ -1,0 +1,9 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜技術核心
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+- Strata：C++ 異構分層排程 + CPU/GPU 平行執行
+- Ollama：基於 llama.cpp（GGUF 跨平台執行）
+- vLLM：PagedAttention + Continuous Batching
+- SGLang：RadixAttention（前綴快取）+ 結構化約束解碼

@@ -1,0 +1,6 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜四套工具的定位差異
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+這篇技術評論把 Strata 放在「消費級硬體上跑超大模型」的位置，並與 Ollama、vLLM、SGLang 比較。

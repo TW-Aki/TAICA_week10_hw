@@ -1,0 +1,11 @@
+標題：教學簡報大綱：如何用 Strata 部署本地模型｜評分標準對應
+來源網址：本機整理（由 01~05 來源文件綜合）
+教材整理日期：2026-11-16
+資料類型：自行整理
+【內容】
+- 至少 ingest 5 篇資料：本專案準備 6 篇（01~06）。
+- 用 Wiki 製作教學型 HTML：wiki/ 目錄提供條目，build_slides.py 據此產生 HTML。
+- 說明 loop / graph 設計：design_notes.md 與簡報第 11 頁。
+- 重複節點：check ↔ regenerate 形成迴圈。
+- 檢查與重新生成：llm_wiki.py 的 validator 與 regenerate 節點。
+- 反思：簡報第 13 頁與 design_notes.md。

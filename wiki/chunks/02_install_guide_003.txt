@@ -1,0 +1,26 @@
+標題：Strata 安裝與第一次啟動教學｜路線 B：終端機 App（ recommended for CLI 工作流）
+來源網址：https://github.com/Niko1221/Strata#installation
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+Linux / macOS：
+
+```bash
+curl -fsSL --connect-timeout 15 --max-time 120 \
+  https://github.com/Niko1221/Strata/releases/latest/download/install.sh \
+  -o install.sh && sh install.sh
+```
+
+Windows PowerShell：
+
+```powershell
+irm -TimeoutSec 120 https://github.com/Niko1221/Strata/releases/latest/download/install.ps1 | iex
+```
+
+裝完要「開啟新的終端機」，讓 PATH 生效，然後：
+
+```bash
+strata launch
+```
+
+依照精靈提示選擇並下載模型，完成後就能在本機對話。

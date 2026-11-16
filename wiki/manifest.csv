@@ -1,0 +1,37 @@
+﻿cid,doc_id,title,section,source_url,chars
+01_strata_overview_001,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,Strata 是什麼,https://github.com/Niko1221/Strata,115
+01_strata_overview_002,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,核心功能,https://github.com/Niko1221/Strata,246
+01_strata_overview_003,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,主要模型,https://github.com/Niko1221/Strata,284
+01_strata_overview_004,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,快速開始,https://github.com/Niko1221/Strata,84
+01_strata_overview_005,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,支援平台,https://github.com/Niko1221/Strata,308
+01_strata_overview_006,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,安裝入口,https://github.com/Niko1221/Strata,504
+01_strata_overview_007,01_strata_overview,Strata 是什麼：本地 AI 推理引擎與桌面/終端應用,倉庫內的檔案線索,https://github.com/Niko1221/Strata,251
+02_install_guide_001,02_install_guide,Strata 安裝與第一次啟動教學,安裝與第一次啟動,https://github.com/Niko1221/Strata#installation,34
+02_install_guide_002,02_install_guide,Strata 安裝與第一次啟動教學,路線 A：桌面 App（最簡單）,https://github.com/Niko1221/Strata#installation,206
+02_install_guide_003,02_install_guide,Strata 安裝與第一次啟動教學,路線 B：終端機 App（ recommended for CLI 工作流）,https://github.com/Niko1221/Strata#installation,404
+02_install_guide_004,02_install_guide,Strata 安裝與第一次啟動教學,路線 C：從原始碼或 Docker 建置,https://github.com/Niko1221/Strata#installation,237
+02_install_guide_005,02_install_guide,Strata 安裝與第一次啟動教學,第一次啟動後的檢查清單,https://github.com/Niko1221/Strata#installation,159
+02_install_guide_006,02_install_guide,Strata 安裝與第一次啟動教學,常見誤區,https://github.com/Niko1221/Strata#installation,185
+03_model_and_memory_001,03_model_and_memory,模型與記憶體選擇：量化 pack 怎麼挑,模型與記憶體選擇,https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md,89
+03_model_and_memory_002,03_model_and_memory,模型與記憶體選擇：量化 pack 怎麼挑,量化為什麼重要,https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md,559
+03_model_and_memory_003,03_model_and_memory,模型與記憶體選擇：量化 pack 怎麼挑,選擇流程建議,https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md,232
+03_model_and_memory_004,03_model_and_memory,模型與記憶體選擇：量化 pack 怎麼挑,取捨,https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md,95
+03_model_and_memory_005,03_model_and_memory,模型與記憶體選擇：量化 pack 怎麼挑,常見誤區,https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md,102
+04_api_connect_001,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,API 與外部工具串接,https://github.com/Niko1221/Strata#connect-external-tools,62
+04_api_connect_002,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,兩套 API,https://github.com/Niko1221/Strata#connect-external-tools,124
+04_api_connect_003,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,strata connect,https://github.com/Niko1221/Strata#connect-external-tools,200
+04_api_connect_004,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,為什麼這很重要,https://github.com/Niko1221/Strata#connect-external-tools,82
+04_api_connect_005,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,實作重點,https://github.com/Niko1221/Strata#connect-external-tools,156
+04_api_connect_006,04_api_connect,把 Strata 接給外部工具：API 與 strata connect,常見誤區,https://github.com/Niko1221/Strata#connect-external-tools,130
+05_compare_tools_001,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,四套工具的定位差異,https://zhuanlan.zhihu.com/p/2101327443474883150,59
+05_compare_tools_002,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,核心定位,https://zhuanlan.zhihu.com/p/2101327443474883150,153
+05_compare_tools_003,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,技術核心,https://zhuanlan.zhihu.com/p/2101327443474883150,151
+05_compare_tools_004,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,硬體門檻,https://zhuanlan.zhihu.com/p/2101327443474883150,144
+05_compare_tools_005,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,併發與吞吐,https://zhuanlan.zhihu.com/p/2101327443474883150,117
+05_compare_tools_006,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,Strata 的技術原理（評論所述）,https://zhuanlan.zhihu.com/p/2101327443474883150,322
+05_compare_tools_007,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,Strata 的局限,https://zhuanlan.zhihu.com/p/2101327443474883150,151
+05_compare_tools_008,05_compare_tools,Strata vs Ollama vs vLLM vs SGLang 選型比較,選擇建議,https://zhuanlan.zhihu.com/p/2101327443474883150,150
+06_teaching_outline_001,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,教學簡報大綱,本機整理（由 01~05 來源文件綜合）,65
+06_teaching_outline_002,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,學習目標,本機整理（由 01~05 來源文件綜合）,146
+06_teaching_outline_003,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,簡報章節,本機整理（由 01~05 來源文件綜合）,275
+06_teaching_outline_004,06_teaching_outline,教學簡報大綱：如何用 Strata 部署本地模型,評分標準對應,本機整理（由 01~05 來源文件綜合）,258

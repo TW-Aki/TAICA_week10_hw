@@ -1,0 +1,10 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜核心功能
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+- 本機聊天、寫程式、處理圖片輸入（Chat, code and work with images, locally）
+- 使用自家的 Strata inference engine
+- 在本機 `localhost` 提供 OpenAI 相容與 Anthropic 相容的 HTTP API
+- 可掛給 Claude Code、Codex CLI、OpenCode、oh-my-pi、pi.dev、Hermes Agent、OpenClaw 等外部工具當作後端
+- 開源、免費、不需註冊帳號

@@ -1,0 +1,15 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜主要模型
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+README 列出的主打模型是 `Qwen3.8-Flash-Next`，推薦 provider 為 `ISTA-DASLab`，量化選項包含：
+
+- `Q2_0`
+- `IQ2_XS`
+- `IQ3_XXS`
+- `IQ3_S`
+
+程式碼情境另外推薦 `Coder: IQ1_M`。其他 provider 還有 Unsloth、Gyro（agentionai）、Swift 1.5、NVFP4、OrcaRouter。
+
+另一個收錄模型是 `Qwen3.6-35B-A3B`，已記錄的 packs 有 `UD-Q4_K_XL`、`UD-Q6_K_XL`、`Q8_0`。

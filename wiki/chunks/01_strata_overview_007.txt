@@ -1,0 +1,6 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜倉庫內的檔案線索
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+README 與檔案列表出現 `docs/MODELS.md#pick-by-memory`、`docs/AI_SETUP.md`、`README.zh-CN.md`、`AGENTS.md`、`CONTRIBUTING.md`、`SECURITY.md`，以及 `Dockerfile`、`CMakeLists.txt`、`setup.py`、`strata.py` 等。Windows 另有 `SETUP.bat`、`START-HERE.bat`、`UPDATE.bat`、`BENCH.bat`。

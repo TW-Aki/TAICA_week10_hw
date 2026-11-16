@@ -1,0 +1,6 @@
+標題：Strata 是什麼：本地 AI 推理引擎與桌面/終端應用｜Strata 是什麼
+來源網址：https://github.com/Niko1221/Strata
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。它的口號是「Run powerful AI on your own computer.」，強調不需要帳號、不用雲端、MIT 授權。

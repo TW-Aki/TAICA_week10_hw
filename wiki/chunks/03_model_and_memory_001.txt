@@ -1,0 +1,6 @@
+標題：模型與記憶體選擇：量化 pack 怎麼挑｜模型與記憶體選擇
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+Strata 的 README 指向 `docs/MODELS.md#pick-by-memory`，要使用者依照電腦記憶體挑模型。以下是 README 與模型清單中出現的資訊。

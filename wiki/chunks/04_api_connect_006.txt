@@ -1,0 +1,7 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜常見誤區
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+- 以為要申請 API key：本機 API 通常不需要對外服務的金鑰，但仍要照 `strata connect` 的指示設定。
+- 以為只能用在 Claude Code：任何支援自訂 OpenAI-compatible endpoint 的程式都有機會接入。

@@ -1,0 +1,137 @@
+[
+  {
+    "topic": "Strata 是什麼",
+    "title": "Strata 是什麼",
+    "definition": "Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。",
+    "bullets": [
+      "Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。",
+      "它的口號是「Run powerful AI on your own computer.」，強調不需要帳號、不用雲端、MIT 授權。",
+      "本機聊天、寫程式、處理圖片輸入（Chat, code and work with images, locally）\n",
+      "使用自家的 Strata inference engine\n",
+      "適合：不想碰終端機、只想試試看的人。"
+    ],
+    "sources": [
+      "https://github.com/Niko1221/Strata",
+      "https://github.com/Niko1221/Strata#installation",
+      "https://github.com/Niko1221/Strata#connect-external-tools"
+    ],
+    "related": [
+      "安裝與第一次啟動",
+      "模型與記憶體選擇"
+    ],
+    "rounds": 1,
+    "status": "accepted"
+  },
+  {
+    "topic": "安裝與第一次啟動",
+    "title": "安裝與第一次啟動",
+    "definition": "桌面 App：從 GitHub Releases 下載對應平台的安裝檔（例如 `Strata-0.2.15-windows-x64-setup.exe`、`Strata-0.2.15-linux-x86_64.AppImage`、`Strata-0.2.15-macos-arm64.dmg`）。",
+    "bullets": [
+      "適合：不想碰終端機、只想試試看的人。",
+      "桌面 App：從 GitHub Releases 下載對應平台的安裝檔（例如 `Strata-0.2.15-windows-x64-setup.exe`、`Strata-0.2.15-linux-x86_64.AppImage`、`Strata-0.2.15-macos-arm64.dmg`）。",
+      "curl -fsSL --connect-timeout 15 --max-time 120 https://github.com/Niko1221/Strata/releases/latest/download/install.sh -o install.sh && sh install.sh\n",
+      "Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。",
+      "它的口號是「Run powerful AI on your own computer.」，強調不需要帳號、不用雲端、MIT 授權。"
+    ],
+    "sources": [
+      "https://github.com/Niko1221/Strata#installation",
+      "https://github.com/Niko1221/Strata",
+      "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md"
+    ],
+    "related": [
+      "Strata 是什麼",
+      "模型與記憶體選擇"
+    ],
+    "rounds": 1,
+    "status": "accepted"
+  },
+  {
+    "topic": "模型與記憶體選擇",
+    "title": "模型與記憶體選擇",
+    "definition": "本地部署最大的限制不是算力，而是「模型權重放不放得下、搬得快不快」。",
+    "bullets": [
+      "本地部署最大的限制不是算力，而是「模型權重放不放得下、搬得快不快」。",
+      "量化（quantization）用較少的位元表示權重，例如 Q8、Q4、IQ2、IQ1，數字越小越省記憶體，但精度與推理品質可能下降。",
+      "低量化：省記憶體、可跑更大模型，但複雜推理可能劣化。",
+      "高量化：品質較好，但需要更多 VRAM/RAM。",
+      "評論聲稱在 RTX 4070/5070（12GB）+ 64GB 記憶體的機器上，可把 125B MoE 推到 50~90+ token/s。"
+    ],
+    "sources": [
+      "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md",
+      "https://zhuanlan.zhihu.com/p/2101327443474883150",
+      "https://github.com/Niko1221/Strata"
+    ],
+    "related": [
+      "Strata 是什麼",
+      "安裝與第一次啟動"
+    ],
+    "rounds": 1,
+    "status": "accepted"
+  },
+  {
+    "topic": "API 與外部工具串接",
+    "title": "API 與外部工具串接",
+    "definition": "用途：印出或引導你完成把 Strata 接到外部工具的設定。",
+    "bullets": [
+      "用途：印出或引導你完成把 Strata 接到外部工具的設定。",
+      "README 明確列出的工具包括：\n",
+      "本機聊天、寫程式、處理圖片輸入（Chat, code and work with images, locally）\n",
+      "使用自家的 Strata inference engine\n",
+      "`strata connect` 則用來查看怎麼把 Strata 接到外部工具。"
+    ],
+    "sources": [
+      "https://github.com/Niko1221/Strata#connect-external-tools",
+      "https://github.com/Niko1221/Strata"
+    ],
+    "related": [
+      "Strata 是什麼",
+      "安裝與第一次啟動"
+    ],
+    "rounds": 1,
+    "status": "accepted"
+  },
+  {
+    "topic": "與其他工具的比較",
+    "title": "與其他工具的比較",
+    "definition": "Strata：針對單併發（Batch=1）極致優化",
+    "bullets": [
+      "Strata：針對單併發（Batch=1）極致優化\n",
+      "Ollama：單併發尚可，併發擴充能力較弱\n",
+      "Strata | 消費級極限跨層推理：單機跑超顯存 MoE |\n",
+      "Ollama | 輕量個人應用：極簡桌面、一鍵運行 |\n",
+      "這篇技術評論把 Strata 放在「消費級硬體上跑超大模型」的位置，並與 Ollama、vLLM、SGLang 比較。"
+    ],
+    "sources": [
+      "https://zhuanlan.zhihu.com/p/2101327443474883150",
+      "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md"
+    ],
+    "related": [
+      "Strata 是什麼",
+      "安裝與第一次啟動"
+    ],
+    "rounds": 1,
+    "status": "accepted"
+  },
+  {
+    "topic": "常見問題與效能瓶頸",
+    "title": "常見問題與效能瓶頸",
+    "definition": "本地部署最大的限制不是算力，而是「模型權重放不放得下、搬得快不快」。",
+    "bullets": [
+      "本地部署最大的限制不是算力，而是「模型權重放不放得下、搬得快不快」。",
+      "量化（quantization）用較少的位元表示權重，例如 Q8、Q4、IQ2、IQ1，數字越小越省記憶體，但精度與推理品質可能下降。",
+      "低量化：省記憶體、可跑更大模型，但複雜推理可能劣化。",
+      "高量化：品質較好，但需要更多 VRAM/RAM。",
+      "評論聲稱在 RTX 4070/5070（12GB）+ 64GB 記憶體的機器上，可把 125B MoE 推到 50~90+ token/s。"
+    ],
+    "sources": [
+      "https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md",
+      "https://zhuanlan.zhihu.com/p/2101327443474883150"
+    ],
+    "related": [
+      "Strata 是什麼",
+      "安裝與第一次啟動"
+    ],
+    "rounds": 2,
+    "status": "accepted"
+  }
+]

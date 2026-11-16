@@ -1,0 +1,6 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜API 與外部工具串接
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+Strata 不只是一個聊天視窗，它會在本機 `localhost` 開放兩套相容 API，因此可以當成其他工具的模型後端。

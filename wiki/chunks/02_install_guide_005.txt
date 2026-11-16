@@ -1,0 +1,9 @@
+標題：Strata 安裝與第一次啟動教學｜第一次啟動後的檢查清單
+來源網址：https://github.com/Niko1221/Strata#installation
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+- `strata launch` 是否成功列出模型並開始下載
+- 模型下載完成後能否正常對話
+- 若要比對效能，Windows 可執行 `BENCH.bat`，Unix-like 可執行 `bench.sh`
+- 若要更新，Windows 用 `UPDATE.bat`，Unix-like 用 `update.sh`

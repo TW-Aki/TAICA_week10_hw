@@ -1,0 +1,9 @@
+標題：Strata vs Ollama vs vLLM vs SGLang 選型比較｜硬體門檻
+來源網址：https://zhuanlan.zhihu.com/p/2101327443474883150
+教材整理日期：2026-11-16
+資料類型：技術評論
+【內容】
+- Strata：消費級顯卡 12~24G + 大記憶體 32~64G+
+- Ollama：一般的 PC、Mac 統一記憶體、甚至是沒有顯卡的 CPU 環境
+- vLLM：資料中心卡或高顯存工作站，權重大多要塞進 VRAM
+- SGLang：資料中心卡或多卡集群，需要大顯存支撐高並發快取

@@ -1,0 +1,11 @@
+標題：模型與記憶體選擇：量化 pack 怎麼挑｜選擇流程建議
+來源網址：https://github.com/Niko1221/Strata/blob/main/docs/MODELS.md
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+1. 先查自己的顯存（VRAM）與系統記憶體（RAM）。
+2. 到 `docs/MODELS.md#pick-by-memory` 對照模型所需記憶體。
+3. 記憶體緊就想低 bit，例如 `IQ2_XS`、`IQ3_XXS`、`Q2_0`。
+4. 編程用途可考慮 `Coder: IQ1_M`。
+5. 記憶體充裕就往 `Q4_K_XL`、`Q6_K_XL`、`Q8_0` 走，品質較好。
+6. 若更在意省記憶體而非速度，可看 `Gyro-S`、`Gyro-M`。

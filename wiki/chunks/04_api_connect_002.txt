@@ -1,0 +1,9 @@
+標題：把 Strata 接給外部工具：API 與 strata connect｜兩套 API
+來源網址：https://github.com/Niko1221/Strata#connect-external-tools
+教材整理日期：2026-11-16
+資料類型：官方文件
+【內容】
+- OpenAI-compatible API
+- Anthropic-compatible API
+
+兩者都在本機運行，且支援可選的圖片輸入。這代表大多數「可以吃 OpenAI API base URL 的程式」都能改個網址就接上 Strata。
