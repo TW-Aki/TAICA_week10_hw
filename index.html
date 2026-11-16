@@ -106,15 +106,44 @@ svg{max-width:100%;height:auto}
     <p style="margin-top:12px">用量一多就很可觀：每天 1 萬次請求、每次 1K 輸入 + 500 輸出，用 GPT-4.1 約 <strong>每月 $1,800</strong>。本地則是<strong>一次性硬體成本</strong>，之後推論邊際成本接近電費。</p>
     <p style="margin-top:8px">來源：<code>openai.com/api/pricing</code>、<code>claude.com/pricing</code>、<code>ai.google.dev/gemini-api/docs/pricing</code></p>
     </section>
-<section class="slide "><div class="kicker">選型</div><h2>Ollama 與 Strata 差在哪？</h2>
+<section class="slide "><div class="kicker">選型 · 逐項對比</div><h2>Ollama 與 Strata 差在哪？</h2>
     <table>
-      <tr><th>工具</th><th>定位</th><th>核心技術</th><th>硬體門檻</th><th>強項</th></tr>
-      <tr><td><strong>Strata</strong></td><td>消費級跑超顯存 MoE</td><td>C++ 異構分層排程、CPU/GPU 平行</td><td>12–24G 顯卡 + 32–64G+ RAM</td><td>單併發極致優化</td></tr>
-      <tr><td>Ollama</td><td>輕量個人應用</td><td>llama.cpp / GGUF</td><td>一般 PC、Mac、甚至純 CPU</td><td>一鍵上手、模型庫完整</td></tr>
-      <tr><td>vLLM</td><td>企業級生產服務</td><td>PagedAttention + Continuous Batching</td><td>資料中心卡</td><td>高併發吞吐</td></tr>
-      <tr><td>SGLang</td><td>Complex Agent / 長文本</td><td>RadixAttention</td><td>多卡集群</td><td>前綴快取、結構化解碼</td></tr>
+      <tr><th>比較項目</th><th>Ollama</th><th>Strata</th></tr>
+      <tr><td>定位</td><td>通用型模型管理器，一鍵跑常見模型</td><td>專為「超顯存 MoE」設計的推論引擎</td></tr>
+      <tr><td>底層技術</td><td>llama.cpp / GGUF</td><td>C++ 自研引擎，借鏡 llama.cpp 的 ggml</td></tr>
+      <tr><td>支援模型</td><td>模型庫上百款：Llama、Qwen、Gemma、Mistral、DeepSeek…</td><td>只針對 Qwen3.8-Flash-Next（125B）與 Qwen3.6-35B-A3B 深度調校</td></tr>
+      <tr><td>硬體門檻</td><td>一般 PC、Mac、甚至純 CPU 都能跑</td><td>12–24G 顯卡 + 32G 以上 RAM（64G 更穩）</td></tr>
+      <tr><td>模型體積</td><td>7B 約 4–5GB、32B 約 20GB</td><td>Qwen3.6-35B 約 23GB；125B 從 58GB 到 188GB</td></tr>
+      <tr><td>記憶體策略</td><td>整份模型放進 VRAM 或 RAM</td><td>熱門專家放 VRAM、全部專家放 RAM、查找表放 SSD</td></tr>
+      <tr><td>速度特性</td><td>小模型很快，大模型放不下就變慢</td><td>用 MTP 投機解碼，官方稱快 1.6–1.8 倍</td></tr>
+      <tr><td>併發</td><td>單人使用為主</td><td>預設單請求，可調到 2；不適合多人</td></tr>
+      <tr><td>本機 API</td><td><code>localhost:11434</code>，OpenAI 相容</td><td><code>localhost:8080</code>，同時支援 OpenAI 與 Anthropic</td></tr>
+      <tr><td>授權</td><td>MIT</td><td>MIT（模型各自的授權另計）</td></tr>
     </table>
-    <p style="margin-top:14px">簡單記：<strong>Strata 是把「放不下」的模型跑起來，Ollama 是把「放得下」的模型跑得最快。</strong></p>
+    <p style="margin-top:12px">一句話：<strong>Ollama 是「模型百貨公司」，Strata 是「重型吊車」</strong>——前者什麼都有一點，後者專門搬別人搬不動的東西。</p>
+    </section>
+<section class="slide "><div class="kicker">選型 · 怎麼選</div><h2>三種情境，三種選擇</h2>
+    <div class="grid g3">
+      <div class="card"><h3>日常聊天、翻譯、摘要</h3><p class="tag">選 Ollama</p><ul>
+        <li>7B–32B 已經很夠用</li>
+        <li>下載 4–20GB，十幾分鐘就好</li>
+        <li>Mac、筆電、沒有獨顯也能跑</li>
+        <li>一行指令 <code>ollama run qwen3</code> 就能開始</li>
+      </ul></div>
+      <div class="card"><h3>離線跑 100B+ 模型</h3><p class="tag">選 Strata</p><ul>
+        <li>想把 125B MoE 塞進 16GB 顯卡</li>
+        <li>需要接 Claude Code、Codex CLI 當後端</li>
+        <li>願意備 32–64GB RAM 與 80GB 硬碟</li>
+        <li>重視隱私、完全離線</li>
+      </ul></div>
+      <div class="card"><h3>公司多人同時用</h3><p class="tag">選 vLLM</p><ul>
+        <li>需要高併發、穩定吞吐</li>
+        <li>有資料中心等級 GPU</li>
+        <li>要 K8s、監控、SLA</li>
+        <li>Strata 與 Ollama 都不適合這情境</li>
+      </ul></div>
+    </div>
+    <p class="quote" style="margin-top:12px">兩者可以並存：小模型用 Ollama 快速驗證，真要跑大模型再開 Strata。兩邊都提供 OpenAI 相容 API，切換成本很低。</p>
     </section>
 <section class="slide "><div class="kicker">定義</div><h2>Strata 是什麼？</h2>
     <p class="big">Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。</p>
