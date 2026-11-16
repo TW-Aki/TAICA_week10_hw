@@ -30,7 +30,7 @@ week10_hw/
 └── out/
     ├── run_log.md               # 執行紀錄（可看到 check FAIL → regenerate → PASS）
     ├── reflection.md            # 反思
-    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，20 頁）
+    └── strata_deployment_teaching.html   # 最終教學簡報（單檔，22 頁）
 ```
 
 ---
@@ -81,7 +81,7 @@ python llm_wiki.py all
 | 要求 | 本專案做法 |
 |---|---|
 | 建立自己的 LLM Wiki，至少 ingest 5 篇 | `sources/` 共 7 篇，`llm_wiki.py` 會檢查不得少於 5 篇 |
-| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 20 頁單檔 HTML |
+| 用 Wiki 製作教學型 HTML 簡報 | `build_slides.py` 讀 `wiki/entries.json` 與 `out/run_log.md` 產生 22 頁單檔 HTML |
 | 說明 loop / graph 設計 | `design_notes.md`、簡報第 11 頁 SVG 流程圖 |
 | 重複節點 | `check ↔ regenerate` 形成迴圈，最多 3 輪 |
 | 檢查與重新生成 | `check_entry()` 驗證 5 個欄位；失敗時呼叫 `regenerate` 後回到 `check` |

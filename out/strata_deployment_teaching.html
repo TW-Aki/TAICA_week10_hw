@@ -292,6 +292,32 @@ UPDATE.bat / update.sh # 更新</code></pre>
     </table>
     <p style="margin-top:10px">註：RTX 5060 Ti 與 RTX 4070 兩列都是 48.2 tok/s，來自兩份不同報告，數字相同純屬巧合（前者 IQ3_S、後者 IQ2_XS）。</p><p style="margin-top:6px">官方明確提醒：<strong>這是社群實測、不是保證值</strong>，須與估計值分開標示。來源：<code>docs/COMMUNITY_BENCHMARKS.md</code></p>
     </section>
+<section class="slide "><div class="kicker">我的實測</div><h2>同一台機器，我實測到多少？</h2>
+    <p>用 <code>speedtest.py</code> 直接讀引擎回報的 <code>timings</code>，每項跑 3 輪取中位數（思考模式關閉）：</p>
+    <table>
+      <tr><th>測試項目</th><th>prompt tokens</th><th>讀取 tok/s</th><th>生成 tok/s</th><th>耗時</th></tr>
+      <tr><td>短問答</td><td>22</td><td>142.1</td><td><strong>25.6</strong></td><td>1.96 s</td></tr>
+      <tr><td>中文生成（約 250 字）</td><td>36</td><td>190.2</td><td><strong>24.9</strong></td><td>8.14 s</td></tr>
+      <tr><td>中長 prompt（約 2K）</td><td>2,332</td><td>538.8</td><td><strong>22.3</strong></td><td>5.45 s</td></tr>
+    </table>
+    <p style="margin-top:10px">環境：RTX 5070 Ti 16GB + 32GB RAM + Ryzen 7 9800X3D，Qwen3.6-35B-A3B UD-Q4_K_XL，context 32K。</p>
+    </section>
+<section class="slide "><div class="kicker">我的實測 · 對照</div><h2>為什麼比官方數字慢？</h2>
+    <div class="grid g2">
+      <div class="card"><h3>數字對照</h3><ul>
+        <li>官方 RTX 5060 Ti 16G：<strong>48.2 tok/s</strong>（125B IQ3_S）</li>
+        <li>官方 RX 9070 16G：<strong>58.7 tok/s</strong>（125B IQ3_XXS）</li>
+        <li>我的 5070 Ti 16G：<strong>22–26 tok/s</strong>（35B UD-Q4_K_XL）</li>
+      </ul></div>
+      <div class="card"><h3>四個原因</h3><ul>
+        <li><strong>模型不同</strong>：官方那幾筆是 125B MoE，我跑的是 35B，不能直接比</li>
+        <li><strong>只有 65/256 個專家進顯卡</strong>，其餘 18.75GB 走 RAM 與 8 條 CPU 執行緒</li>
+        <li><strong>context 32K 的 KV cache</strong> 佔掉顯存，壓縮了專家快取空間</li>
+        <li><strong>128K 根本開不起來</strong>，這台的上限就是 32K</li>
+      </ul></div>
+    </div>
+    <p class="quote" style="margin-top:14px">換算下來 22–26 tok/s ≈ 每秒 17–20 個中文字，日常問答夠用；要更快只能換更大顯卡，或改用更小的模型。</p>
+    </section>
 <section class="slide "><div class="kicker">LLM WIKI</div><h2>這份簡報是怎麼被「寫」出來的？</h2>
     <p>先建立自己的 LLM Wiki：<strong>ingest 7 篇 → 切成 44 個 chunk → 索引 → 生成 6 個條目 → 檢查 → 重新生成 → 反思</strong>。</p>
     <div class="grid g3" style="margin-top:12px"><div class="card"><h3>Strata 是什麼</h3><p>Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。</p><ul><li>Strata 是一個開源、完全在本機運行的 AI 推理引擎，同時提供桌面 App 與終端機 App。</li><li>它的口號是「Run powerful AI on your own computer.」，強調不需要帳號、不用雲端、MIT 授權。</li><li>本機聊天、寫程式、處理圖片輸入（Chat, code and work with images, locally）

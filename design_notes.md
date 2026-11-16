@@ -112,7 +112,7 @@ for round_no in range(1, MAX_ROUNDS + 1):
 | 作業要求 | 設計上的對應 |
 |---|---|
 | 至少 ingest 5 篇 | `ingest` 節點明確檢查篇數，不足直接報錯 |
-| 用 Wiki 製作 HTML | `export` 節點把條目寫成 json/md，`build_slides.py` 讀它產生 20 頁簡報 |
+| 用 Wiki 製作 HTML | `export` 節點把條目寫成 json/md，`build_slides.py` 讀它產生 22 頁簡報 |
 | loop / graph | `GRAPH` 常數定義節點與邊；簡報第 11 頁畫成 SVG |
 | 重複節點 | `check`、`regenerate` 在 for 迴圈裡重複執行 |
 | 檢查與重新生成 | validator + `missing` 差異修補 prompt |
@@ -135,4 +135,4 @@ for round_no in range(1, MAX_ROUNDS + 1):
 
 ## 八、可直接貼的「簡短說明」
 
-> 我的 Agent 式 Wiki pipeline 把流程畫成一個 graph：先 ingest 7 篇本地文件、切成 44 個 chunk、建立 bigram + TF-IDF 索引，再針對六個主題檢索並請 LLM 產生 Wiki 條目草稿。關鍵設計是 check 與 regenerate 形成一個可重複的迴圈：驗證器檢查標題、定義、重點、來源網址與關聯條目五個欄位，若失敗就把缺失欄位帶回 prompt 重新生成，最多三輪；實際執行中「常見問題」條目在第一輪缺少來源與關聯，經 regenerate 後第二輪通過，這個紀錄被存到 run_log.md。最後 reflect 節點統計通過率與輪數，寫出限制與改進，並把 Wiki 條目與執行紀錄一起交給 build_slides.py，產生 20 頁的單檔教學 HTML 簡報。
+> 我的 Agent 式 Wiki pipeline 把流程畫成一個 graph：先 ingest 7 篇本地文件、切成 44 個 chunk、建立 bigram + TF-IDF 索引，再針對六個主題檢索並請 LLM 產生 Wiki 條目草稿。關鍵設計是 check 與 regenerate 形成一個可重複的迴圈：驗證器檢查標題、定義、重點、來源網址與關聯條目五個欄位，若失敗就把缺失欄位帶回 prompt 重新生成，最多三輪；實際執行中「常見問題」條目在第一輪缺少來源與關聯，經 regenerate 後第二輪通過，這個紀錄被存到 run_log.md。最後 reflect 節點統計通過率與輪數，寫出限制與改進，並把 Wiki 條目與執行紀錄一起交給 build_slides.py，產生 22 頁的單檔教學 HTML 簡報。
