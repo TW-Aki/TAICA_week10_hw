@@ -17,7 +17,7 @@ Strata 是類似 Ollama 的本地模型運行工具，主打在消費級硬體�
 ## 二、LLM Wiki 連結或成果
 
 - **本機成果**：`week10_hw/wiki/`
-- **GitHub**：待整包上傳後補上連結（目前先放本地）
+- **GitHub**：https://github.com/TW-Aki/TAICA_week10_hw
 
 | 成果 | 內容 | 檔案 |
 |---|---|---|
